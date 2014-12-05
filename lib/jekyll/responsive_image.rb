@@ -19,13 +19,17 @@ module Jekyll
       end
 
       def resize_image(path, config)
+        sizes = config['sizes']
+
+        return if sizes.empty?
+
         output_dir = config['output_dir']
         ensure_output_dir_exists!(output_dir)
 
         resized = []
         img = Magick::Image::read(path).first
 
-        config['sizes'].each do |size|
+        sizes.each do |size|
           width = size['width']
           ratio = width.to_f / img.columns.to_f
           height = (img.rows.to_f * ratio).round

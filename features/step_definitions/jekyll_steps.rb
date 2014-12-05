@@ -6,12 +6,16 @@ Given /^I have a responsive_image configuration with:$/ do |config|
   write_file('_config.yml', "responsive_image:\n#{config}")
 end
 
-Given /^I have a file "([^\"]+)" with:$/ do |path, contents|
-  write_file(path, contents)
+Given /^I have a file "(.+)" with:$/ do |path, contents|
+  write_file(path, "---\n---\n#{contents}")
 end
 
-Then /^I should see "(.*)" in "(.*)"$/ do |text, file|
+Then /^I should see "(.+)" in "(.*)"$/ do |text, file|
   assert_match(Regexp.new(text), File.open(file).readlines.join)
+end
+
+Then /^the file "(.+)" should exist$/ do |path|
+  assert File.exists?(path)
 end
 
 def write_file(path, contents)
