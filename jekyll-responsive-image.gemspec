@@ -13,7 +13,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/wildlyinaccurate/jekyll-responsive-image'
   spec.licenses      = ['MIT']
   spec.description   = %q{
-
+    Jekyll Responsive Images is a Jekyll plugin and utility for automatically resizing images.
+    Its intended use is for sites which want to display responsive images using something like srcset or Imager.js.
   }
 
   spec.files         = `git ls-files`.split($/)
