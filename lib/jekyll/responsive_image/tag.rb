@@ -13,9 +13,6 @@ module Jekyll
       end
 
       def resize_image(img, config)
-        output_dir = config['output_dir']
-        ensure_output_dir_exists!(output_dir)
-
         resized = []
 
         config['sizes'].each do |size|
@@ -23,15 +20,15 @@ module Jekyll
           ratio = width.to_f / img.columns.to_f
           height = (img.rows.to_f * ratio).round
 
-          filename = resized_filename(img.filename, width, height)
-          filepath = "#{output_dir}/#{filename}"
-
           next unless needs_resizing?(img, width)
 
+          filepath = format_output_path(config['output_path_format'], img.filename, width, height)
           resized.push(image_hash(filepath, width, height))
 
           # Don't resize images more than once
           next if File.exists?(filepath)
+
+          ensure_output_dir_exists!(File.dirname(filepath))
 
           Jekyll.logger.info "Generating #{filepath}"
 
@@ -46,13 +43,9 @@ module Jekyll
         resized
       end
 
-      # Insert resize information into a file path
-      #
-      #   resized_filename(/foo/bar/file.name.jpg, 500, 300)
-      #     => /foo/bar/file.name-500x300.jpg
-      #
-      def resized_filename(path, width, height)
-        File.basename(path).sub(/\.([^.]+)$/, "-#{width}x#{height}.\\1")
+      def format_output_path(format, path, width, height)
+        params = Utils.symbolize_keys(image_hash(path, width, height))
+        format % params
       end
 
       def needs_resizing?(img, width)
@@ -62,16 +55,19 @@ module Jekyll
       def ensure_output_dir_exists!(dir)
         unless Dir.exists?(dir)
           Jekyll.logger.info "Creating output directory #{dir}"
-          Dir.mkdir(dir)
+          FileUtils.mkdir_p(dir)
         end
       end
 
       # Build a hash containing image information
       def image_hash(path, width, height)
         {
-          'path'   => path,
-          'width'  => width,
-          'height' => height,
+          'path'      => path,
+          'basename'  => File.basename(path),
+          'filename'  => File.basename(path, '.*'),
+          'extension' => File.extname(path).delete('.'),
+          'width'     => width,
+          'height'    => height,
         }
       end
 

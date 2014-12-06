@@ -66,10 +66,27 @@ Feature: Jekyll responsive-image tag
         sizes:
           - width: 100
           - width: 200
+          - width: 300
       """
     And I have a file "index.html" with:
       """
       {% responsive_image path: assets/test.png template: _includes/custom-template.html %}
       """
     When I run Jekyll
-    Then I should see "100200" in "_site/index.html"
+    Then I should see "[100, 200, 300]" in "_site/index.html"
+
+  Scenario: Overriding the generated filenames
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        output_path_format: assets/%{basename}-resized/%{width}/%{filename}-%{height}.%{extension}
+        sizes:
+          - width: 100
+      """
+    And I have a file "index.html" with:
+      """
+      {% responsive_image path: assets/test.png %}
+      """
+    When I run Jekyll
+    Then I should see "/assets/test.png-resized/100/test-50.png 100w" in "_site/index.html"
+    And the file "assets/test.png-resized/100/test-50.png" should exist

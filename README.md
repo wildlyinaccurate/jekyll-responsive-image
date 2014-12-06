@@ -30,6 +30,18 @@ responsive_image:
   template: '_includes/responsive-image.html' # Path to the template to render. Required.
   default_quality: 90 # Quality to use when resizing images. Default value is 85. Optional.
 
+  # The template used when generating filenames for resized images.
+  # Default value is 'assets/resized/%{filename}-%{width}x%{height}.%{extension}'
+  #
+  # Parameters available are:
+  #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
+  #   %{filename}    Basename without the extension (assets/some-file.jpg => some-file)
+  #   %{extension}   Extension of the file (assets/some-file.jpg => jpg)
+  #   %{width}       Width of the resized image
+  #   %{height}      Height of the resized image
+  #
+  output_path_format: assets/resized/%{width}/%{basename}
+
   # An array of resize configurations. When this array is empty (or not specified),
   # no resizing will take place.
   sizes:
@@ -62,7 +74,9 @@ Any extra attributes will be passed straight to the template as variables.
 
 ### Template
 
-You will need to create a template in order to use the `responsive_image` tag. A sample template is below.
+You will need to create a template in order to use the `responsive_image` tag. Below are some sample templates to get you started.
+
+#### Basic image tag with `srcset`
 
 ```html
 <img src="/{{ path }}"
@@ -70,6 +84,28 @@ You will need to create a template in order to use the `responsive_image` tag. A
       {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
       /{{ original.path }} {{ original.width }}w
      ">
+```
+
+#### Responsive images using [Imager.js](https://github.com/BBC-News/Imager.js/)
+
+> This template assumes an `output_path_format` of `assets/resized/%{width}/%{basename}`
+
+```html
+{% assign smallest = resized | sort: 'width' | first %}
+
+<div class="responsive-image">
+    <img class="responsive-image__placeholder" src="/{{ smallest.path }}">
+    <div class="responsive-image__delayed" data-src="/assets/resized/{width}/{{ original.basename }}"></div>
+</div>
+
+<script>
+    new Imager('.responsive-image__delayed', {
+        availableWidths: [{{ resized | map: 'width' | join: ', ' }}]
+        onImagesReplaced: function() {
+            $('.responsive-image__placeholder').hide();
+        }
+    });
+</script>
 ```
 
 ### Template Variables
@@ -87,8 +123,11 @@ The following variables are available in the template:
 
 Image objects (like `original` and each object in `resized`) contain the following properties:
 
-| Variable | Type     | Description              |
-|----------|----------|--------------------------|
-| `path`   | String   | The path to the image.   |
-| `width`  | Integer  | The width of the image.  |
-| `height` | Integer  | The height of the image. |
+| Variable    | Type    | Description                                                             |
+|-------------|---------|-------------------------------------------------------------------------|
+| `path`      | String  | The path to the image.                                                  |
+| `width`     | Integer | The width of the image.                                                 |
+| `height`    | Integer | The height of the image.                                                |
+| `basename`  | String  | Basename of the file (`assets/some-file.jpg` => `some-file.jpg`).       |
+| `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`). |
+| `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                |
