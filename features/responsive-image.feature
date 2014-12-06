@@ -57,3 +57,18 @@ Feature: Jekyll responsive-image tag
     And I should see "/assets/resized/test-200x100.png 200w" in "_site/index.html"
     And the file "assets/resized/test-100x50.png" should exist
     And the file "assets/resized/test-200x100.png" should exist
+
+  Scenario: Overriding the template
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+          - width: 200
+      """
+    And I have a file "index.html" with:
+      """
+      {% responsive_image path: assets/test.png template: _includes/custom-template.html %}
+      """
+    When I run Jekyll
+    Then I should see "100200" in "_site/index.html"
