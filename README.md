@@ -27,11 +27,26 @@ An example configuration is below.
 
 ```yaml
 responsive_image:
-  template: '_includes/responsive-image.html' # Path to the template to render. Required.
-  default_quality: 90 # Quality to use when resizing images. Default value is 85. Optional.
+  # [Required]
+  # Path to the image template.
+  template: _includes/responsive-image.html
 
+  # [Optional, Default: 85]
+  # Quality to use when resizing images.
+  default_quality: 90
+
+  # [Optional, Default: []]
+  # An array of resize configuration objects. Each object must contain at least
+  # a `width` value.
+  sizes:
+    - width: 480  # [Required] How wide the resized image will be.
+      quality: 80 # [Optional] Overrides default_quality for this size.
+    - width: 800
+    - width: 1400
+      quality: 90
+
+  # [Optional, Default: assets/resized/%{filename}-%{width}x%{height}.%{extension}]
   # The template used when generating filenames for resized images.
-  # Default value is 'assets/resized/%{filename}-%{width}x%{height}.%{extension}'
   #
   # Parameters available are:
   #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
@@ -41,15 +56,6 @@ responsive_image:
   #   %{height}      Height of the resized image
   #
   output_path_format: assets/resized/%{width}/%{basename}
-
-  # An array of resize configurations. When this array is empty (or not specified),
-  # no resizing will take place.
-  sizes:
-    - width: 480 # How wide the resized image will be. Required
-      quality: 80 # Overrides default_quality for this size. Optional.
-    - width: 800
-    - width: 1400
-      quality: 90
 ```
 
 ## Usage
