@@ -1,5 +1,4 @@
-<img alt="{{ alt }}" src="/{{ path }}" title="{{ title }}"{% if resized %} srcset="
-    {% for i in resized %}
-        /{{ i.path }} {{ i.width }}w{% if forloop.last == false %},{% endif %}
-    {% endfor %}
-"{% endif %}>
+<img alt="{{ alt }}" src="/{{ path }}" title="{{ title }}" srcset="
+    {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
+    /{{ original.path }} {{ original.width }}w
+">

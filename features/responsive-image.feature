@@ -55,6 +55,7 @@ Feature: Jekyll responsive-image tag
     Then I should see "<img alt=\"\" src=\"/assets/test.png\"" in "_site/index.html"
     And I should see "/assets/resized/test-100x50.png 100w" in "_site/index.html"
     And I should see "/assets/resized/test-200x100.png 200w" in "_site/index.html"
+    And I should see "/assets/test.png 300w" in "_site/index.html"
     And the file "assets/resized/test-100x50.png" should exist
     And the file "assets/resized/test-200x100.png" should exist
 

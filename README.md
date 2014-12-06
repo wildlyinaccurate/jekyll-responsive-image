@@ -64,31 +64,29 @@ You will need to create a template in order to use the `responsive_image` tag. A
 
 ```html
 <img src="/{{ path }}"
-     alt="{{ alt }}"
-     title="{{ title }}"
-
-     {% if resized %}
-         srcset="{% for i in resized %}
-             /{{ i.path }} {{ i.width }}w{% if forloop.last == false %},{% endif %}
-         {% endfor %}"
-     {% endif %}
->
+     srcset="
+      {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
+      /{{ original.path }} {{ original.width }}w
+     ">
 ```
 
-#### Template Variables
+### Template Variables
 
 The following variables are available in the template:
 
-| Variable  | Type   | Description                                                                                          |
-|-----------|--------|------------------------------------------------------------------------------------------------------|
-| `path`    | String | The path of the unmodified image. This is always the same as the `path` attribute passed to the tag. |
-| `resized` | Array  | An array of all the resized images. Each image contains the properties listed below.                 |
-| `*`       | String | Any other attributes will be passed to the template verbatim as strings.                             |
+| Variable   | Type   | Description                                                                                          |
+|----------- |--------|------------------------------------------------------------------------------------------------------|
+| `path`     | String | The path of the unmodified image. This is always the same as the `path` attribute passed to the tag. |
+| `resized`  | Array  | An array of all the resized images. Each image is an **Image Object**.                               |
+| `original` | Object | An **Image Object** containing information about the original image.                                 |
+| `*`        | String | Any other attributes will be passed to the template verbatim as strings.                             |
 
-Each element in the `resized` array contains the following properties:
+#### Image Objects
 
-| Variable | Type     | Description                      |
-|----------|----------|----------------------------------|
-| `path`   | String   | The path of the resized image.   |
-| `width`  | Integer  | The width of the resized image.  |
-| `height` | Integer  | The height of the resized image. |
+Image objects (like `original` and each object in `resized`) contain the following properties:
+
+| Variable | Type     | Description              |
+|----------|----------|--------------------------|
+| `path`   | String   | The path to the image.   |
+| `width`  | Integer  | The width of the image.  |
+| `height` | Integer  | The height of the image. |
