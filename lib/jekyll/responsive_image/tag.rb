@@ -5,9 +5,8 @@ module Jekyll
         super
 
         @attributes = {}
-        @markup = markup
 
-        @markup.scan(::Liquid::TagAttributes) do |key, value|
+        markup.scan(::Liquid::TagAttributes) do |key, value|
           # Strip quotes from around attribute values
           @attributes[key] = value.gsub(/^['"]|['"]$/, '')
         end
