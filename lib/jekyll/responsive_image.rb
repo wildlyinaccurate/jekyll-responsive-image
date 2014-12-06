@@ -18,40 +18,31 @@ module Jekyll
         end
       end
 
-      def resize_image(path, config)
-        sizes = config['sizes']
-
-        return if sizes.empty?
-
+      def resize_image(img, config)
         output_dir = config['output_dir']
         ensure_output_dir_exists!(output_dir)
 
         resized = []
-        img = Magick::Image::read(path).first
 
-        sizes.each do |size|
+        config['sizes'].each do |size|
           width = size['width']
           ratio = width.to_f / img.columns.to_f
           height = (img.rows.to_f * ratio).round
 
-          filename = resized_filename(path, width, height)
-          newpath = "#{output_dir}/#{filename}"
+          filename = resized_filename(img.filename, width, height)
+          filepath = "#{output_dir}/#{filename}"
 
           next unless needs_resizing?(img, width)
 
-          resized.push({
-            'width'  => width,
-            'height' => height,
-            'path'   => newpath,
-          })
+          resized.push(image_hash(filepath, width, height))
 
           # Don't resize images more than once
-          next if File.exists?(newpath)
+          next if File.exists?(filepath)
 
-          Jekyll.logger.info "Generating #{newpath}"
+          Jekyll.logger.info "Generating #{filepath}"
 
           i = img.scale(ratio)
-          i.write(newpath) do |f|
+          i.write(filepath) do |f|
             f.quality = size['quality'] || DEFAULT_QUALITY
           end
 
@@ -81,13 +72,24 @@ module Jekyll
         end
       end
 
+      # Build a hash containing image information
+      def image_hash(path, width, height)
+        {
+          'path'   => path,
+          'width'  => width,
+          'height' => height,
+        }
+      end
+
       def render(context)
         config = context.registers[:site].config['responsive_image']
         config['output_dir'] ||= 'assets/resized'
         config['sizes'] ||= []
 
+        img = Magick::Image::read(@attributes['path']).first
+        @attributes['original'] = image_hash(@attributes['path'], img.columns, img.rows)
+        @attributes['resized'] = resize_image(img, config)
         @attributes['template'] ||= config['template']
-        @attributes['resized'] = resize_image(@attributes['path'], config)
 
         partial = File.read(@attributes['template'])
         template = Liquid::Template.parse(partial)
