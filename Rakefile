@@ -22,7 +22,7 @@ task :default => [:features]
 
 task :release do |t|
   system "gem build jekyll-responsive_image.gemspec"
-  system "git tag v#{Jekyll::ResponsiveImage::VERSION}"
+  system "git tag v#{Jekyll::ResponsiveImage::VERSION} -a -m 'Tagged release of jekyll-responsive_image-#{Jekyll::ResponsiveImage::VERSION}.gem'"
   system "git push --tags"
   system "gem push jekyll-responsive_image-#{Jekyll::ResponsiveImage::VERSION}.gem"
 end
