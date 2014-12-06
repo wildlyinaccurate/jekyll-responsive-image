@@ -28,14 +28,16 @@ An example configuration is below.
 ```yaml
 responsive_image:
   template: '_includes/responsive-image.html' # Path to the template to render. Required.
+  default_quality: 90 # Quality to use when resizing images. Default value is 85. Optional.
 
   # An array of resize configurations. When this array is empty (or not specified),
   # no resizing will take place.
   sizes:
     - width: 480 # How wide the resized image will be. Required
+      quality: 80 # Overrides default_quality for this size. Optional.
     - width: 800
-      quality: 90 # Override JPEG quality (default is 85). Optional.
     - width: 1400
+      quality: 90
 ```
 
 ## Usage
