@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 require 'jekyll/responsive_image/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'jekyll-responsive-image'
+  spec.name          = 'jekyll-responsive_image'
   spec.version       = Jekyll::ResponsiveImage::VERSION
   spec.authors       = ['Joseph Wynn']
   spec.email         = ['joseph@wildlyinaccurate.com']
@@ -17,10 +17,10 @@ Gem::Specification.new do |spec|
     Its intended use is for sites which want to display responsive images using something like srcset or Imager.js.
   }
 
-  spec.files         = `git ls-files`.split($/)
-  spec.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  spec.executables   = []
-  spec.require_paths = ['lib']
+  spec.files        = `git ls-files`.split($/)
+  spec.test_files   = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.executables  = []
+  spec.require_path = 'lib'
 
   spec.add_runtime_dependency 'jekyll', '~> 2.0'
   spec.add_runtime_dependency 'rmagick'
