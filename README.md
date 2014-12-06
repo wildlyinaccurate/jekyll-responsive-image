@@ -34,7 +34,7 @@ responsive_image:
   sizes:
     - width: 480 # How wide the resized image will be. Required
     - width: 800
-      quality: 90 # JPEG quality. Optional.
+      quality: 90 # Override JPEG quality (default is 85). Optional.
     - width: 1400
 ```
 
