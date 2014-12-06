@@ -11,8 +11,12 @@ end
 require 'rake'
 require 'jekyll/responsive_image/version'
 require 'cucumber/rake/task'
+require 'coveralls/rake/task'
 
 Cucumber::Rake::Task.new(:features)
+
+Coveralls::RakeTask.new
+task :features_with_coveralls => [:features, 'coveralls:push']
 
 task :default => [:features]
 
