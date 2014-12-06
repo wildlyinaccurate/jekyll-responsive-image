@@ -1,3 +1,9 @@
+begin
+  require 'coveralls' if ENV['CI']
+rescue LoadError
+  # ignore
+end
+
 require 'test/unit'
 require 'jekyll/responsive_image'
 

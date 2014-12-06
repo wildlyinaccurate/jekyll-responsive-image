@@ -1,6 +1,6 @@
 language: ruby
 bundler_args: --without debug
-script: bundle exec rake features
+script: bundle exec rake features_with_coveralls
 rvm:
   - 2.1.0
   - 2.0.0
