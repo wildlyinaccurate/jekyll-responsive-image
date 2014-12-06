@@ -1,7 +1,6 @@
-begin
-  require 'coveralls' if ENV['CI']
-rescue LoadError
-  # ignore
+if ENV['CI']
+  require 'coveralls'
+  Coveralls.wear!
 end
 
 require 'test/unit'
