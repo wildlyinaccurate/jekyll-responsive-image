@@ -1,9 +1,9 @@
 module Jekyll
   class ResponsiveImage
     @defaults = {
-      'default_quality' => 85,
-      'output_dir' => 'assets/resized',
-      'sizes' => [],
+      'default_quality'    => 85,
+      'output_path_format' => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
+      'sizes'              => [],
     }.freeze
 
     class << self
