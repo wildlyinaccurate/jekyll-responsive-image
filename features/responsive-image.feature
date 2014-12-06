@@ -13,9 +13,21 @@ Feature: Jekyll responsive-image tag
       {% responsive_image path: assets/test.png alt: Foobar %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\">" in "_site/index.html"
+    Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\"" in "_site/index.html"
 
-  Scenario: UTF-8 alt attribute
+  Scenario: Adding custom attributes
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+      """
+    And I have a file "index.html" with:
+      """
+      {% responsive_image path: assets/test.png alt: Foobar title: "Lorem Ipsum" %}
+      """
+    When I run Jekyll
+    Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
+
+  Scenario: UTF-8 attributes
     Given I have a responsive_image configuration with:
       """
         template: _includes/responsive-image.html
@@ -25,7 +37,7 @@ Feature: Jekyll responsive-image tag
       {% responsive_image path: assets/test.png alt: "かっこいい！ ジェケルが好きです！" %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"かっこいい！ ジェケルが好きです！\" src=\"/assets/test.png\">" in "_site/index.html"
+    Then I should see "<img alt=\"かっこいい！ ジェケルが好きです！\" src=\"/assets/test.png\"" in "_site/index.html"
 
   Scenario: Image with multiple sizes
     Given I have a responsive_image configuration with:
