@@ -83,9 +83,10 @@ module Jekyll
         img = Magick::Image::read(@attributes['path']).first
         @attributes['original'] = image_hash(@attributes['path'], img.columns, img.rows)
         @attributes['resized'] = resize_image(img, config)
-        @attributes['template'] ||= config['template']
 
-        partial = File.read(@attributes['template'])
+        image_template = @attributes['template'] || config['template']
+
+        partial = File.read(image_template)
         template = Liquid::Template.parse(partial)
 
         template.render!(@attributes)
