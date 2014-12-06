@@ -1,6 +1,6 @@
 # Jekyll Responsive Images
 
-Jekyll Responsive Images is a [Jekyll](http://jekyllrb.com/) tag and utility for automatically resizing images. Its intended use is for sites which want to display responsive images using something like [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#Specifications) or [Imager.js](https://github.com/BBC-News/Imager.js/).
+Jekyll Responsive Images is a [Jekyll](http://jekyllrb.com/) plugin and utility for automatically resizing images. Its intended use is for sites which want to display responsive images using something like [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#Specifications) or [Imager.js](https://github.com/BBC-News/Imager.js/).
 
 [![Build Status](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-images.svg?branch=master)](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-images)
 [![Coverage Status](https://img.shields.io/coveralls/wildlyinaccurate/jekyll-responsive-images.svg)](https://coveralls.io/r/wildlyinaccurate/jekyll-responsive-images)
