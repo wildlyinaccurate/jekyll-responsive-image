@@ -40,7 +40,7 @@ responsive_image:
 
 ## Usage
 
-Replace your images with the `responsive_image` tag, specifying a path to the image.
+Replace your images with the `responsive_image` tag, specifying the path to the image in the `path` attribute.
 
 ```
 {% responsive_image path: assets/my-file.jpg %}
@@ -58,12 +58,14 @@ Any extra attributes will be passed straight to the template as variables.
 {% responsive_image path: assets/image.jpg alt: "Lorem ipsum..." title: "Lorem ipsum..." %}
 ```
 
-Create a template to suit your needs. A basic template example is below.
+### Template
+
+You will need to create a template in order to use the `responsive_image` tag. A sample template is below.
 
 ```html
 <img src="/{{ path }}"
      alt="{{ alt }}"
-     title="{{ title }}
+     title="{{ title }}"
 
      {% if resized %}
          srcset="{% for i in resized %}
@@ -72,3 +74,21 @@ Create a template to suit your needs. A basic template example is below.
      {% endif %}
 >
 ```
+
+#### Template Variables
+
+The following variables are available in the template:
+
+| Variable  | Type   | Description                                                                                          |
+|-----------|--------|------------------------------------------------------------------------------------------------------|
+| `path`    | String | The path of the unmodified image. This is always the same as the `path` attribute passed to the tag. |
+| `resized` | Array  | An array of all the resized images. Each image contains the properties listed below.                 |
+| `*`       | String | Any other attributes will be passed to the template verbatim as strings.                             |
+
+Each element in the `resized` array contains the following properties:
+
+| Variable | Type     | Description                      |
+|----------|----------|----------------------------------|
+| `path`   | String   | The path of the resized image.   |
+| `width`  | Integer  | The width of the resized image.  |
+| `height` | Integer  | The height of the resized image. |
