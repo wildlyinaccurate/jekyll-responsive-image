@@ -86,9 +86,10 @@ module Jekyll
         config['output_dir'] ||= 'assets/resized'
         config['sizes'] ||= []
 
+        @attributes['template'] ||= config['template']
         @attributes['resized'] = resize_image(@attributes['path'], config)
 
-        partial = File.read(config['template'])
+        partial = File.read(@attributes['template'])
         template = Liquid::Template.parse(partial)
 
         template.render!(@attributes)
