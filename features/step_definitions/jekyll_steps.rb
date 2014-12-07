@@ -6,7 +6,15 @@ Given /^I have a responsive_image configuration with:$/ do |config|
   write_file('_config.yml', "responsive_image:\n#{config}")
 end
 
+Given /^I have a responsive_image configuration with "(.+)" set to "(.+)"$/ do |config, value|
+  write_file('_config.yml', "responsive_image:\n  #{config}: #{value}")
+end
+
 Given /^I have a file "(.+)" with:$/ do |path, contents|
+  write_file(path, "---\n---\n#{contents}")
+end
+
+Given /^I have a file "(.+)" with "(.+)"$/ do |path, contents|
   write_file(path, "---\n---\n#{contents}")
 end
 

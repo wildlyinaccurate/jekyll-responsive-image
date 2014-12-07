@@ -4,38 +4,23 @@ Feature: Jekyll responsive_image tag
   In order to best cater for devices of all sizes
 
   Scenario: Simple image tag
-    Given I have a responsive_image configuration with:
-      """
-        template: _includes/responsive-image.html
-      """
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/test.png alt: Foobar %}
-      """
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
+    And I have a file "index.html" with "{% responsive_image path: assets/test.png alt: Foobar %}"
     When I run Jekyll
     Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\"" in "_site/index.html"
 
   Scenario: Adding custom attributes
-    Given I have a responsive_image configuration with:
-      """
-        template: _includes/responsive-image.html
-      """
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
-      {% responsive_image path: assets/test.png alt: Foobar title: "Lorem Ipsum" %}
+      {% responsive_image path: assets/test.png alt: 'Foobar bazbar' title: "Lorem Ipsum" %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
+    Then I should see "<img alt=\"Foobar bazbar\" src=\"/assets/test.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
 
   Scenario: UTF-8 attributes
-    Given I have a responsive_image configuration with:
-      """
-        template: _includes/responsive-image.html
-      """
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/test.png alt: "かっこいい！ ジェケルが好きです！" %}
-      """
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
+    And I have a file "index.html" with "{% responsive_image path: assets/test.png alt: 'かっこいい！ ジェケルが好きです！' %}"
     When I run Jekyll
     Then I should see "<img alt=\"かっこいい！ ジェケルが好きです！\" src=\"/assets/test.png\"" in "_site/index.html"
 
@@ -47,10 +32,7 @@ Feature: Jekyll responsive_image tag
           - width: 100
           - width: 200
       """
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/test.png %}
-      """
+    And I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
     When I run Jekyll
     Then I should see "<img alt=\"\" src=\"/assets/test.png\"" in "_site/index.html"
     And I should see "/assets/resized/test-100x50.png 100w" in "_site/index.html"
@@ -68,10 +50,7 @@ Feature: Jekyll responsive_image tag
           - width: 200
           - width: 300
       """
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/test.png template: _includes/custom-template.html %}
-      """
+    And I have a file "index.html" with "{% responsive_image path: assets/test.png template: _includes/custom-template.html %}"
     When I run Jekyll
     Then I should see "[100, 200, 300]" in "_site/index.html"
 
@@ -83,10 +62,7 @@ Feature: Jekyll responsive_image tag
         sizes:
           - width: 100
       """
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/test.png %}
-      """
+    And I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
     When I run Jekyll
     Then I should see "/assets/test.png-resized/100/test-50.png 100w" in "_site/index.html"
     And the file "assets/test.png-resized/100/test-50.png" should exist

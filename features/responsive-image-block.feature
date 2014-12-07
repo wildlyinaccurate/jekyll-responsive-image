@@ -4,10 +4,7 @@ Feature: Jekyll responsive_image_block tag
   In order to dynamically generate my responsive images
 
   Scenario: Simple image tag
-    Given I have a responsive_image configuration with:
-      """
-        template: _includes/responsive-image.html
-      """
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
       {% assign path = 'assets/test.png' %}
@@ -23,10 +20,7 @@ Feature: Jekyll responsive_image_block tag
     Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/test.png\" title=\"Magic rainbow adventure!\"" in "_site/index.html"
 
   Scenario: More complex logic in the block tag
-    Given I have a responsive_image configuration with:
-      """
-        template: _includes/responsive-image.html
-      """
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
       {% assign path = 'assets/test.png' %}
