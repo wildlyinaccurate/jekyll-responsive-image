@@ -104,11 +104,13 @@ You will need to create a template in order to use the `responsive_image` tag. B
 #### Responsive images with `srcset`
 
 ```twig
-<img src="/{{ path }}"
-     srcset="
-      {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
-      /{{ original.path }} {{ original.width }}w
-     ">
+{% capture srcset %}
+    {% for i in resized %}
+        /{{ i.path }} {{ i.width }}w,
+    {% endfor %}
+{% endcapture %}
+
+<img src="/{{ path }}" srcset="{{ srcset | strip_newlines }} /{{ original.path }} {{ original.width }}w">
 ```
 
 #### Responsive images with `<picture>`
