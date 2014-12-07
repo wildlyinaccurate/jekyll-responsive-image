@@ -101,7 +101,7 @@ You can use Liquid variables as attributes with the `responsive_image_block` tag
 
 You will need to create a template in order to use the `responsive_image` tag. Below are some sample templates to get you started.
 
-#### Basic image tag with `srcset`
+#### Responsive images with `srcset`
 
 ```twig
 <img src="/{{ path }}"
@@ -109,6 +109,17 @@ You will need to create a template in order to use the `responsive_image` tag. B
       {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
       /{{ original.path }} {{ original.width }}w
      ">
+```
+
+#### Responsive images with `<picture>`
+
+```twig
+<picture>
+    {% for i in resized %}
+        <source media="(min-width: {{ i.width }}px)" srcset="/{{ i.path }}">
+    {% endfor %}
+    <img src="/{{ path }}">
+</picture>
 ```
 
 #### Responsive images using [Imager.js](https://github.com/BBC-News/Imager.js/)
