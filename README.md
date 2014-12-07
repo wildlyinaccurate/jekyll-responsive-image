@@ -62,19 +62,19 @@ responsive_image:
 
 Replace your images with the `responsive_image` tag, specifying the path to the image in the `path` attribute.
 
-```
+```twig
 {% responsive_image path: assets/my-file.jpg %}
 ```
 
 You can override the template on a per-image basis by specifying the `template` attribute.
 
-```
+```twig
 {% responsive_image path: assets/my-file.jpg template: _includes/another-template.html %}
 ```
 
 Any extra attributes will be passed straight to the template as variables.
 
-```
+```twig
 {% responsive_image path: assets/image.jpg alt: "Lorem ipsum..." title: "Lorem ipsum..." %}
 ```
 
@@ -84,7 +84,7 @@ You can use Liquid variables as attributes with the `responsive_image_block` tag
 
 > **Important!** The attributes in the `responsive_image_block` tag are parsed as YAML, so whitespace and indentation are important!
 
-```
+```twig
 {% assign path = 'assets/test.png' %}
 {% assign alt = 'Lorem ipsum...' %}
 
@@ -103,7 +103,7 @@ You will need to create a template in order to use the `responsive_image` tag. B
 
 #### Basic image tag with `srcset`
 
-```html
+```twig
 <img src="/{{ path }}"
      srcset="
       {% for i in resized %}/{{ i.path }} {{ i.width }}w,{% endfor %}
@@ -115,7 +115,7 @@ You will need to create a template in order to use the `responsive_image` tag. B
 
 > This template assumes an `output_path_format` of `assets/resized/%{width}/%{basename}`
 
-```html
+```twig
 {% assign smallest = resized | sort: 'width' | first %}
 
 <div class="responsive-image">
