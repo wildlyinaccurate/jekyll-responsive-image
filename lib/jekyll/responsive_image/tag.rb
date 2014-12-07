@@ -1,8 +1,6 @@
 module Jekyll
   class ResponsiveImage
     class Tag < Liquid::Tag
-      include ResponsiveImage::Utils
-
       def initialize(tag_name, markup, tokens)
         super
 
@@ -18,10 +16,9 @@ module Jekyll
         config = ResponsiveImage.defaults.dup
         config.merge!(context.registers[:site].config['responsive_image'])
 
-        resize_handler = ResizeHandler.new
-        img = Magick::Image::read(@attributes['path']).first
-        @attributes['original'] = image_hash(@attributes['path'], img.columns, img.rows)
-        @attributes['resized'] = resize_handler.resize_image(img, config)
+        image = ImageProcessor.process(@attributes['path'], config)
+        @attributes['original'] = image[:original]
+        @attributes['resized'] = image[:resized]
 
         image_template = @attributes['template'] || config['template']
 
