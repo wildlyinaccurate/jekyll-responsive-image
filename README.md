@@ -78,6 +78,25 @@ Any extra attributes will be passed straight to the template as variables.
 {% responsive_image path: assets/image.jpg alt: "Lorem ipsum..." title: "Lorem ipsum..." %}
 ```
 
+### Liquid variables as attributes
+
+You can use Liquid variables as attributes with the `responsive_image_block` tag. This tag works in exactly the same way as the `responsive_image` tag, but is implemented as a block tag to allow for more complex logic.
+
+> **Important!** The attributes in the `responsive_image_block` tag are parsed as YAML, so whitespace and indentation are important!
+
+```
+{% assign path = 'assets/test.png' %}
+{% assign alt = 'Lorem ipsum...' %}
+
+{% responsive_image_block %}
+    path: {{ path }}
+    alt: {{ alt }}
+    {% if title %}
+    title: {{ title }}
+    {% endif %}
+{% endresponsive_image_block %}
+```
+
 ### Template
 
 You will need to create a template in order to use the `responsive_image` tag. Below are some sample templates to get you started.
