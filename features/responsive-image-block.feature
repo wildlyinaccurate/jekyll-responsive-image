@@ -38,3 +38,13 @@ Feature: Jekyll responsive_image_block tag
       """
     When I run Jekyll
     Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/test.png\"" in "_site/index.html"
+
+  Scenario: Handling a nil path
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
+    And I have a file "index.html" with:
+      """
+      {% responsive_image_block %}
+          path: {{ path }}
+      {% endresponsive_image_block %}
+      """
+    Then Jekyll should throw a "SyntaxError"
