@@ -1,7 +1,7 @@
 module Jekyll
   class ResponsiveImage
-    class Utils
-      def self.symbolize_keys(hash)
+    module Utils
+      def symbolize_keys(hash)
         result = {}
         hash.each_key do |key|
           result[key.to_sym] = hash[key]
@@ -10,7 +10,7 @@ module Jekyll
       end
 
       # Build a hash containing image information
-      def self.image_hash(path, width, height)
+      def image_hash(path, width, height)
         {
           'path'      => path,
           'basename'  => File.basename(path),

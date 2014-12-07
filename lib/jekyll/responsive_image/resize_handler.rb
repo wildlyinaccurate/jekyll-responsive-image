@@ -1,6 +1,8 @@
 module Jekyll
   class ResponsiveImage
     class ResizeHandler
+      include ResponsiveImage::Utils
+
       def resize_image(img, config)
         resized = []
 
@@ -12,7 +14,7 @@ module Jekyll
           next unless needs_resizing?(img, width)
 
           filepath = format_output_path(config['output_path_format'], img.filename, width, height)
-          resized.push(Utils.image_hash(filepath, width, height))
+          resized.push(image_hash(filepath, width, height))
 
           # Don't resize images more than once
           next if File.exists?(filepath)
@@ -33,7 +35,7 @@ module Jekyll
       end
 
       def format_output_path(format, path, width, height)
-        params = Utils.symbolize_keys(Utils.image_hash(path, width, height))
+        params = symbolize_keys(image_hash(path, width, height))
         format % params
       end
 
