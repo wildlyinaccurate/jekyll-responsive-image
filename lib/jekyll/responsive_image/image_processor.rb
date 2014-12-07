@@ -4,7 +4,7 @@ module Jekyll
       include ResponsiveImage::Utils
 
       def process(image_path, config)
-        raise SyntaxError.new('Invalid image path specified') unless File.exists?(image_path)
+        raise SyntaxError.new('Invalid image path specified') unless File.exists?(image_path.to_s)
 
         resize_handler = ResizeHandler.new
         img = Magick::Image::read(image_path).first

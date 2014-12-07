@@ -1,5 +1,11 @@
+include Test::Unit::Assertions
+
 When /^I run Jekyll$/ do
   run_jekyll
+end
+
+Then /^Jekyll should throw a "(.+)"$/ do |error_class|
+  assert_raise(Object.const_get(error_class)) { run_jekyll }
 end
 
 Given /^I have a responsive_image configuration with:$/ do |config|
