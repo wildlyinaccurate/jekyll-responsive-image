@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.executables  = []
   spec.require_path = 'lib'
 
-  spec.add_runtime_dependency 'jekyll', '~> 2.0'
+  spec.add_runtime_dependency 'jekyll', ['>= 2.0', '< 4.0']
   spec.add_runtime_dependency 'rmagick'
 end
