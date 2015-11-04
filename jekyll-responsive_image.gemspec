@@ -22,6 +22,12 @@ Gem::Specification.new do |spec|
   spec.executables  = []
   spec.require_path = 'lib'
 
-  spec.add_runtime_dependency 'jekyll', ['>= 2.0', '< 4.0']
+  if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.0.0')
+    max_jekyll_version = '3.0'
+  else
+    max_jekyll_version = '4.0'
+  end
+
+  spec.add_runtime_dependency 'jekyll', ['>= 2.0', "< #{max_jekyll_version}"]
   spec.add_runtime_dependency 'rmagick'
 end
