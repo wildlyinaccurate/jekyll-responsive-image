@@ -3,7 +3,8 @@ gemspec
 
 group :development do
   gem 'rake'
-  gem 'cucumber', '~> 1.3'
+  gem 'cucumber', '~> 2.1'
+  gem 'test-unit', '~> 3.1'
 
   gem 'coveralls', :require => false
 end
