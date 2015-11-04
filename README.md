@@ -46,7 +46,8 @@ responsive_image:
       quality: 90
 
   # [Optional, Default: assets/resized/%{filename}-%{width}x%{height}.%{extension}]
-  # The template used when generating filenames for resized images.
+  # The template used when generating filenames for resized images. Must be a
+  # relative path.
   #
   # Parameters available are:
   #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)

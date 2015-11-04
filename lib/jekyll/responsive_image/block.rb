@@ -1,9 +1,10 @@
 module Jekyll
   class ResponsiveImage
     class Block < Liquid::Block
+      include Jekyll::ResponsiveImage::Common
+
       def render(context)
-        config = ResponsiveImage.defaults.dup
-        config.merge!(context.registers[:site].config['responsive_image'])
+        config = make_config(context.registers[:site])
 
         attributes = YAML.load(super)
         image_template = attributes['template'] || config['template']

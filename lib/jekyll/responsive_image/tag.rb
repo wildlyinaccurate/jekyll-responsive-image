@@ -1,6 +1,8 @@
 module Jekyll
   class ResponsiveImage
     class Tag < Liquid::Tag
+      include Jekyll::ResponsiveImage::Common
+
       def initialize(tag_name, markup, tokens)
         super
 
@@ -13,8 +15,7 @@ module Jekyll
       end
 
       def render(context)
-        config = ResponsiveImage.defaults.dup
-        config.merge!(context.registers[:site].config['responsive_image'])
+        config = make_config(context.registers[:site])
 
         image = ImageProcessor.process(@attributes['path'], config)
         @attributes['original'] = image[:original]
