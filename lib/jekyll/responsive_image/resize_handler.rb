@@ -28,15 +28,15 @@ module Jekyll
             f.quality = size['quality'] || config['default_quality']
           end
 
+          # Ensure the generated file is copied to the _site directory
+          site_dest_filepath = File.expand_path(filepath, config[:site_dest])
+          ensure_output_dir_exists!(File.dirname(site_dest_filepath))
+          FileUtils.copy(filepath, site_dest_filepath)
+
           i.destroy!
         end
 
         resized
-      end
-
-      def format_output_path(format, path, width, height)
-        params = symbolize_keys(image_hash(path, width, height))
-        format % params
       end
 
       def needs_resizing?(img, width)

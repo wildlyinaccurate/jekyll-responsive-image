@@ -9,6 +9,7 @@ require 'jekyll/responsive_image/defaults'
 require 'jekyll/responsive_image/utils'
 require 'jekyll/responsive_image/image_processor'
 require 'jekyll/responsive_image/resize_handler'
+require 'jekyll/responsive_image/common'
 require 'jekyll/responsive_image/tag'
 require 'jekyll/responsive_image/block'
 
