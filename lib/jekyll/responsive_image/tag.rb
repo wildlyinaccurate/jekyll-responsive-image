@@ -15,7 +15,8 @@ module Jekyll
       end
 
       def render(context)
-        config = make_config(context.registers[:site])
+        site = context.registers[:site]
+        config = make_config(site)
 
         image = ImageProcessor.process(@attributes['path'], config)
         @attributes['original'] = image[:original]
@@ -26,7 +27,7 @@ module Jekyll
         partial = File.read(image_template)
         template = Liquid::Template.parse(partial)
 
-        template.render!(@attributes)
+        template.render!(@attributes.merge(site.site_payload))
       end
     end
   end
