@@ -9,6 +9,17 @@ Feature: Jekyll responsive_image tag
     When I run Jekyll
     Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\"" in "_site/index.html"
 
+  Scenario: Global variables available in templates
+    Given I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
+    And I have a configuration with:
+      """
+        baseurl: https://wildlyinaccurate.com
+        responsive_image:
+          template: _includes/base-url.html
+      """
+    When I run Jekyll
+    Then I should see "<img src=\"https://wildlyinaccurate.com/assets/test.png\">" in "_site/index.html"
+
   Scenario: Adding custom attributes
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
