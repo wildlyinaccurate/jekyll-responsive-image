@@ -8,6 +8,10 @@ Then /^Jekyll should throw a "(.+)"$/ do |error_class|
   assert_raise(Object.const_get(error_class)) { run_jekyll }
 end
 
+Given /^I have a configuration with:$/ do |config|
+  write_file('_config.yml', config)
+end
+
 Given /^I have a responsive_image configuration with:$/ do |config|
   write_file('_config.yml', "responsive_image:\n#{config}")
 end

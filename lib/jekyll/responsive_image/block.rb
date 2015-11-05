@@ -4,7 +4,8 @@ module Jekyll
       include Jekyll::ResponsiveImage::Common
 
       def render(context)
-        config = make_config(context.registers[:site])
+        site = context.registers[:site]
+        config = make_config(site)
 
         attributes = YAML.load(super)
         image_template = attributes['template'] || config['template']
@@ -16,7 +17,7 @@ module Jekyll
         partial = File.read(image_template)
         template = Liquid::Template.parse(partial)
 
-        template.render!(attributes)
+        template.render!(attributes.merge(site.site_payload))
       end
     end
   end
