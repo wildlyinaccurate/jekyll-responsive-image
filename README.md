@@ -50,6 +50,7 @@ responsive_image:
   # relative path.
   #
   # Parameters available are:
+  #   %{dirname}     Directory path of the file (assets/foo/some-file.jpg => assets/foo)
   #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
   #   %{filename}    Basename without the extension (assets/some-file.jpg => some-file)
   #   %{extension}   Extension of the file (assets/some-file.jpg => jpg)
@@ -168,5 +169,6 @@ Image objects (like `original` and each object in `resized`) contain the followi
 | `width`     | Integer | The width of the image.                                                 |
 | `height`    | Integer | The height of the image.                                                |
 | `basename`  | String  | Basename of the file (`assets/some-file.jpg` => `some-file.jpg`).       |
+| `dirname`   | String  | Directory name of the file (`assets/some/file.jpg` => `assets/some`).   |
 | `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`). |
 | `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                |
