@@ -89,7 +89,7 @@ Any extra attributes will be passed straight to the template as variables.
 
 You can use Liquid variables as attributes with the `responsive_image_block` tag. This tag works in exactly the same way as the `responsive_image` tag, but is implemented as a block tag to allow for more complex logic.
 
-> **Important!** The attributes in the `responsive_image_block` tag are parsed as YAML, so whitespace and indentation are important!
+> **Important!** The attributes in the `responsive_image_block` tag are parsed as YAML, so whitespace and indentation are significant!
 
 ```twig
 {% assign path = 'assets/test.png' %}
@@ -133,7 +133,7 @@ You will need to create a template in order to use the `responsive_image` tag. B
 
 #### Responsive images using [Imager.js](https://github.com/BBC-News/Imager.js/)
 
-> This template assumes an `output_path_format` of `assets/resized/%{width}/%{basename}`
+> **Note:** This template assumes an `output_path_format` of `assets/resized/%{width}/%{basename}`
 
 ```twig
 {% assign smallest = resized | sort: 'width' | first %}
