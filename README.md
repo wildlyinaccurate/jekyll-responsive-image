@@ -45,6 +45,11 @@ responsive_image:
     - width: 1400
       quality: 90
 
+  # [Optional, Default: assets]
+  # Use this parameter if your images are stored in subfolders
+  # and you want to keep the folder arrangement through the process
+  base_path: assets
+
   # [Optional, Default: assets/resized/%{filename}-%{width}x%{height}.%{extension}]
   # The template used when generating filenames for resized images. Must be a
   # relative path.
@@ -52,6 +57,7 @@ responsive_image:
   # Parameters available are:
   #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
   #   %{filename}    Basename without the extension (assets/some-file.jpg => some-file)
+  #   %{folderpath}    Relative path from the image asset folder to the the file (`assets/somefolder/some-file.jpg` => `somefolder`)
   #   %{extension}   Extension of the file (assets/some-file.jpg => jpg)
   #   %{width}       Width of the resized image
   #   %{height}      Height of the resized image
@@ -167,6 +173,7 @@ Image objects (like `original` and each object in `resized`) contain the followi
 | `path`      | String  | The path to the image.                                                  |
 | `width`     | Integer | The width of the image.                                                 |
 | `height`    | Integer | The height of the image.                                                |
+| `folderpath`  | String  | Relative path from the image asset folder to the the file (`assets/somefolder/some-file.jpg` => `somefolder`).       |
 | `basename`  | String  | Basename of the file (`assets/some-file.jpg` => `some-file.jpg`).       |
 | `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`). |
 | `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                |

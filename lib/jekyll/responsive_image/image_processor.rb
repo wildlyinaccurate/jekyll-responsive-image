@@ -10,7 +10,7 @@ module Jekyll
         img = Magick::Image::read(image_path).first
 
         {
-          original: image_hash(image_path, img.columns, img.rows),
+          original: image_hash(image_path, config['base_path'], img.columns, img.rows),
           resized: resize_handler.resize_image(img, config),
         }
       end
