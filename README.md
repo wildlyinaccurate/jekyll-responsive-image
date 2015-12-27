@@ -45,12 +45,17 @@ responsive_image:
     - width: 1400
       quality: 90
 
+  # [Optional, Default: assets]
+  # The base directory where assets are stored. This is used to determine the
+  # `dirname` value in `output_path_format` below.
+  base_path: assets
+
   # [Optional, Default: assets/resized/%{filename}-%{width}x%{height}.%{extension}]
   # The template used when generating filenames for resized images. Must be a
   # relative path.
   #
   # Parameters available are:
-  #   %{dirname}     Directory path of the file (assets/foo/some-file.jpg => assets/foo)
+  #   %{dirname}     Directory of the file relative to `base_path` (assets/sub/dir/some-file.jpg => sub/dir)
   #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
   #   %{filename}    Basename without the extension (assets/some-file.jpg => some-file)
   #   %{extension}   Extension of the file (assets/some-file.jpg => jpg)
@@ -163,12 +168,12 @@ The following variables are available in the template:
 
 Image objects (like `original` and each object in `resized`) contain the following properties:
 
-| Variable    | Type    | Description                                                             |
-|-------------|---------|-------------------------------------------------------------------------|
-| `path`      | String  | The path to the image.                                                  |
-| `width`     | Integer | The width of the image.                                                 |
-| `height`    | Integer | The height of the image.                                                |
-| `basename`  | String  | Basename of the file (`assets/some-file.jpg` => `some-file.jpg`).       |
-| `dirname`   | String  | Directory name of the file (`assets/some/file.jpg` => `assets/some`).   |
-| `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`). |
-| `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                |
+| Variable    | Type    | Description                                                                                  |
+|-------------|---------|----------------------------------------------------------------------------------------------|
+| `path`      | String  | The path to the image.                                                                       |
+| `width`     | Integer | The width of the image.                                                                      |
+| `height`    | Integer | The height of the image.                                                                     |
+| `basename`  | String  | Basename of the file (`assets/some-file.jpg` => `some-file.jpg`).                            |
+| `dirname`   | String  | Directory of the file relative to `base_path` (`assets/sub/dir/some-file.jpg` => `sub/dir`). |
+| `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`).                      |
+| `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                                     |

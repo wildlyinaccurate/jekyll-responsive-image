@@ -19,7 +19,7 @@ Feature: Responsive image generation
     Given I have a responsive_image configuration with:
       """
         template: _includes/responsive-image.html
-        output_path_format: "%{dirname}/resized/%{filename}-%{width}.%{extension}"
+        output_path_format: assets/resized/%{dirname}/%{filename}-%{width}.%{extension}
         sizes:
           - width: 100
       """
@@ -32,4 +32,4 @@ Feature: Responsive image generation
 
     When I run Jekyll
     Then the file "assets/resized/test-100.png" should exist
-    And the file "assets/subdir/resized/test-100.png" should exist
+    And the file "assets/resized/subdir/test-100.png" should exist
