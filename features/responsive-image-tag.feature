@@ -69,7 +69,7 @@ Feature: Jekyll responsive_image tag
     Given I have a responsive_image configuration with:
       """
         template: _includes/responsive-image.html
-        output_path_format: assets/%{basename}-resized/%{width}/%{filename}-%{height}.%{extension}
+        output_path_format: assets/%{dirname}/%{basename}-resized/%{width}/%{filename}-%{height}.%{extension}
         sizes:
           - width: 100
       """
