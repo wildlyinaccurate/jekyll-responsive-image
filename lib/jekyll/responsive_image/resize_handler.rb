@@ -13,8 +13,8 @@ module Jekyll
 
           next unless needs_resizing?(img, width)
 
-          filepath = format_output_path(config['output_path_format'], img.filename, width, height)
-          resized.push(image_hash(filepath, width, height))
+          filepath = format_output_path(config['output_path_format'], config['base_path'], img.filename, width, height)
+          resized.push(image_hash(config['base_path'], filepath, width, height))
 
           # Don't resize images more than once
           next if File.exists?(filepath)

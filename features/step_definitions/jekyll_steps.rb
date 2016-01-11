@@ -36,6 +36,12 @@ Then /^the file "(.+)" should exist$/ do |path|
   assert File.exists?(path)
 end
 
+Then /^the image "(.+)" should have the dimensions "(\d+)x(\d+)"$/ do |path, width, height|
+  img = Magick::Image::read(path).first
+  assert_equal "#{width}x#{height}", "#{img.columns}x#{img.rows}"
+  img.destroy!
+end
+
 def write_file(path, contents)
   File.open(path, 'w') do |f|
     f.write(contents)
