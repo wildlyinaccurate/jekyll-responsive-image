@@ -4,20 +4,30 @@ module Jekyll
       include Jekyll::ResponsiveImage::Common
 
       def render(context)
-        site = context.registers[:site]
-        config = make_config(site)
-
         attributes = YAML.load(super)
-        image_template = attributes['template'] || config['template']
 
-        image = ImageProcessor.process(attributes['path'], config)
-        attributes['original'] = image[:original]
-        attributes['resized'] = image[:resized]
+        cache_key = attributes.to_s
+        result = attributes['cache'] ? RenderCache.get(cache_key) : nil
 
-        partial = File.read(image_template)
-        template = Liquid::Template.parse(partial)
+        if result.nil?
+          site = context.registers[:site]
+          config = make_config(site)
 
-        template.render!(attributes.merge(site.site_payload))
+          image_template = attributes['template'] || config['template']
+
+          image = ImageProcessor.process(attributes['path'], config)
+          attributes['original'] = image[:original]
+          attributes['resized'] = image[:resized]
+
+          partial = File.read(image_template)
+          template = Liquid::Template.parse(partial)
+
+          result = template.render!(attributes.merge(site.site_payload))
+
+          RenderCache.set(cache_key, result)
+        end
+
+        result
       end
     end
   end
