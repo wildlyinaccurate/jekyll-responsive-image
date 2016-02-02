@@ -15,19 +15,28 @@ module Jekyll
       end
 
       def render(context)
-        site = context.registers[:site]
-        config = make_config(site)
+        cache_key = @attributes.to_s
+        result = @attributes['cache'] ? RenderCache.get(cache_key) : nil
 
-        image = ImageProcessor.process(@attributes['path'], config)
-        @attributes['original'] = image[:original]
-        @attributes['resized'] = image[:resized]
+        if result.nil?
+          site = context.registers[:site]
+          config = make_config(site)
 
-        image_template = @attributes['template'] || config['template']
+          image = ImageProcessor.process(@attributes['path'], config)
+          @attributes['original'] = image[:original]
+          @attributes['resized'] = image[:resized]
 
-        partial = File.read(image_template)
-        template = Liquid::Template.parse(partial)
+          image_template = @attributes['template'] || config['template']
 
-        template.render!(@attributes.merge(site.site_payload))
+          partial = File.read(image_template)
+          template = Liquid::Template.parse(partial)
+
+          result = template.render!(@attributes.merge(site.site_payload))
+
+          RenderCache.set(cache_key, result)
+        end
+
+        result
       end
     end
   end
