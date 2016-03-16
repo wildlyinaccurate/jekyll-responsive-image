@@ -35,6 +35,8 @@ module Jekyll
 
           i.destroy!
         end
+        
+        img.destroy!
 
         resized
       end
