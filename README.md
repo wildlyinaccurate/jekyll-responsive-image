@@ -2,9 +2,9 @@
 
 Jekyll Responsive Images is a [Jekyll](http://jekyllrb.com/) plugin and utility for automatically resizing images. Its intended use is for sites which want to display responsive images using something like [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#Specifications) or [Imager.js](https://github.com/BBC-News/Imager.js/).
 
-[![Build Status](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-image.svg?branch=master)](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-image)
-[![Coverage Status](https://coveralls.io/repos/wildlyinaccurate/jekyll-responsive-images/badge.svg?branch=master&service=github)](https://coveralls.io/github/wildlyinaccurate/jekyll-responsive-images?branch=master)
-[![Dependency Status](https://gemnasium.com/wildlyinaccurate/jekyll-responsive-images.svg)](https://gemnasium.com/wildlyinaccurate/jekyll-responsive-images)
+[![Build Status](https://img.shields.io/travis/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-image)
+[![Coverage Status](https://img.shields.io/coveralls/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://coveralls.io/repos/github/wildlyinaccurate/jekyll-responsive-image/badge.svg?branch=master)
+[![Dependency Status](https://img.shields.io/gemnasium/wildlyinaccurate/jekyll-responsive-images.svg?style=flat-square)](https://gemnasium.com/wildlyinaccurate/jekyll-responsive-images)
 
 ## Installation
 
