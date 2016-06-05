@@ -36,6 +36,10 @@ Then /^the file "(.+)" should exist$/ do |path|
   assert File.exist?(path)
 end
 
+Then /^the file "(.+)" should not exist$/ do |path|
+  assert !File.exist?(path)
+end
+
 Then /^the image "(.+)" should have the dimensions "(\d+)x(\d+)"$/ do |path, width, height|
   img = Magick::Image::read(path).first
   assert_equal "#{width}x#{height}", "#{img.columns}x#{img.rows}"
