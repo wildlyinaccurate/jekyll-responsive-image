@@ -17,7 +17,7 @@ module Jekyll
           resized.push(image_hash(config['base_path'], filepath, width, height))
 
           # Don't resize images more than once
-          next if File.exists?(filepath)
+          next if File.exist?(filepath)
 
           ensure_output_dir_exists!(File.dirname(filepath))
 
@@ -35,7 +35,7 @@ module Jekyll
 
           i.destroy!
         end
-        
+
         img.destroy!
 
         resized
@@ -46,7 +46,7 @@ module Jekyll
       end
 
       def ensure_output_dir_exists!(dir)
-        unless Dir.exists?(dir)
+        unless Dir.exist?(dir)
           Jekyll.logger.info "Creating output directory #{dir}"
           FileUtils.mkdir_p(dir)
         end
