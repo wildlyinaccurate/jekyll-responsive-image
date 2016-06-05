@@ -28,6 +28,7 @@ Feature: Responsive image generation
       """
         {% responsive_image path: assets/test.png %}
         {% responsive_image path: assets/subdir/test.png %}
+        {% responsive_image path: assets/test.png cache: true %}
       """
 
     When I run Jekyll
