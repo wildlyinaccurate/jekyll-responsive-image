@@ -5,6 +5,7 @@ module Jekyll
       'base_path'          => 'assets',
       'output_path_format' => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
       'sizes'              => [],
+      'extra_images'       => []
     }.freeze
 
     class << self

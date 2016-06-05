@@ -33,7 +33,11 @@ Then /^I should see "(.+)" in "(.*)"$/ do |text, file|
 end
 
 Then /^the file "(.+)" should exist$/ do |path|
-  assert File.exists?(path)
+  assert File.exist?(path)
+end
+
+Then /^the file "(.+)" should not exist$/ do |path|
+  assert !File.exist?(path)
 end
 
 Then /^the image "(.+)" should have the dimensions "(\d+)x(\d+)"$/ do |path, width, height|
