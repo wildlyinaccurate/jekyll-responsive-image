@@ -125,7 +125,7 @@ You will need to create a template in order to use the `responsive_image` tag. B
     {% endfor %}
 {% endcapture %}
 
-<img src="/{{ path }}" srcset="{{ srcset | strip_newlines }} /{{ original.path }} {{ original.width }}w">
+<img src="/{{ path }}" alt="{{ alt }}" srcset="{{ srcset | strip_newlines }} /{{ original.path }} {{ original.width }}w">
 ```
 
 #### Responsive images with `<picture>`
