@@ -71,6 +71,7 @@ responsive_image:
   extra_images:
     - assets/foo/bar.png
     - assets/bgs/*.png
+    - assets/avatars/*.{jpeg,jpg}
 ```
 
 ## Usage
