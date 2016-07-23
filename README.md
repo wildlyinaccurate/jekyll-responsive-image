@@ -17,7 +17,7 @@ $ gem install jekyll-responsive_image
 Then you can either add it to the `gems` section of your `_config.yml`:
 
 ```yaml
-gems: [jekyll/responsive-image]
+gems: [jekyll/responsive_image]
 ```
 
 Or you can copy the contents of [`responsive_image.rb`](lib/jekyll/responsive_image.rb) into your `_plugins` directory.
