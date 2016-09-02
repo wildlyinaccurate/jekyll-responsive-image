@@ -7,7 +7,7 @@ Feature: Jekyll responsive_image_block tag
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
-      {% assign path = 'assets/test.png' %}
+      {% assign path = 'assets/everybody-loves-jalapeño-pineapple-cornbread.png' %}
       {% assign alt = 'Lorem ipsum' %}
 
       {% responsive_image_block %}
@@ -17,13 +17,13 @@ Feature: Jekyll responsive_image_block tag
       {% endresponsive_image_block %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/test.png\" title=\"Magic rainbow adventure!\"" in "_site/index.html"
+    Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\" title=\"Magic rainbow adventure!\"" in "_site/index.html"
 
   Scenario: Global variables available in templates
     Given I have a file "index.html" with:
       """
       {% responsive_image_block %}
-          path: assets/test.png
+          path: assets/everybody-loves-jalapeño-pineapple-cornbread.png
       {% endresponsive_image_block %}
       """
     And I have a configuration with:
@@ -33,13 +33,13 @@ Feature: Jekyll responsive_image_block tag
           template: _includes/base-url.html
       """
     When I run Jekyll
-    Then I should see "<img src=\"https://wildlyinaccurate.com/assets/test.png\">" in "_site/index.html"
+    Then I should see "<img src=\"https://wildlyinaccurate.com/assets/everybody-loves-jalapeño-pineapple-cornbread.png\">" in "_site/index.html"
 
   Scenario: More complex logic in the block tag
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
-      {% assign path = 'assets/test.png' %}
+      {% assign path = 'assets/everybody-loves-jalapeño-pineapple-cornbread.png' %}
       {% assign alt = 'Lorem ipsum' %}
 
       {% responsive_image_block %}
@@ -53,7 +53,7 @@ Feature: Jekyll responsive_image_block tag
       {% endresponsive_image_block %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/test.png\"" in "_site/index.html"
+    Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
 
   Scenario: Handling a nil path
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"

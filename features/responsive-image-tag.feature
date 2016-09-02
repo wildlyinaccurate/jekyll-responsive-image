@@ -5,12 +5,12 @@ Feature: Jekyll responsive_image tag
 
   Scenario: Simple image tag
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png alt: Foobar %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: Foobar %}"
     When I run Jekyll
-    Then I should see "<img alt=\"Foobar\" src=\"/assets/test.png\"" in "_site/index.html"
+    Then I should see "<img alt=\"Foobar\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
 
   Scenario: Global variables available in templates
-    Given I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
+    Given I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}"
     And I have a configuration with:
       """
         baseurl: https://wildlyinaccurate.com
@@ -18,22 +18,22 @@ Feature: Jekyll responsive_image tag
           template: _includes/base-url.html
       """
     When I run Jekyll
-    Then I should see "<img src=\"https://wildlyinaccurate.com/assets/test.png\">" in "_site/index.html"
+    Then I should see "<img src=\"https://wildlyinaccurate.com/assets/everybody-loves-jalapeño-pineapple-cornbread.png\">" in "_site/index.html"
 
   Scenario: Adding custom attributes
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
       """
-      {% responsive_image path: assets/test.png alt: 'Foobar bazbar' title: "Lorem Ipsum" %}
+      {% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: 'Foobar bazbar' title: "Lorem Ipsum" %}
       """
     When I run Jekyll
-    Then I should see "<img alt=\"Foobar bazbar\" src=\"/assets/test.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
+    Then I should see "<img alt=\"Foobar bazbar\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
 
   Scenario: UTF-8 attributes
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png alt: 'かっこいい！ ジェケルが好きです！' %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: 'かっこいい！ ジェケルが好きです！' %}"
     When I run Jekyll
-    Then I should see "<img alt=\"かっこいい！ ジェケルが好きです！\" src=\"/assets/test.png\"" in "_site/index.html"
+    Then I should see "<img alt=\"かっこいい！ ジェケルが好きです！\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
 
   Scenario: Image with multiple sizes
     Given I have a responsive_image configuration with:
@@ -43,14 +43,14 @@ Feature: Jekyll responsive_image tag
           - width: 100
           - width: 200
       """
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}"
     When I run Jekyll
-    Then I should see "<img alt=\"\" src=\"/assets/test.png\"" in "_site/index.html"
-    And I should see "/assets/resized/test-100x50.png 100w" in "_site/index.html"
-    And I should see "/assets/resized/test-200x100.png 200w" in "_site/index.html"
-    And I should see "/assets/test.png 300w" in "_site/index.html"
-    And the file "assets/resized/test-100x50.png" should exist
-    And the file "assets/resized/test-200x100.png" should exist
+    Then I should see "<img alt=\"\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
+    And I should see "/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png 100w" in "_site/index.html"
+    And I should see "/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-200x100.png 200w" in "_site/index.html"
+    And I should see "/assets/everybody-loves-jalapeño-pineapple-cornbread.png 300w" in "_site/index.html"
+    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
+    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-200x100.png" should exist
 
   Scenario: Overriding the template
     Given I have a responsive_image configuration with:
@@ -61,7 +61,7 @@ Feature: Jekyll responsive_image tag
           - width: 200
           - width: 300
       """
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png template: _includes/custom-template.html %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png template: _includes/custom-template.html %}"
     When I run Jekyll
     Then I should see "[100, 200, 300]" in "_site/index.html"
 
@@ -73,7 +73,7 @@ Feature: Jekyll responsive_image tag
         sizes:
           - width: 100
       """
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}"
     When I run Jekyll
-    Then I should see "/assets/test.png-resized/100/test-50.png 100w" in "_site/index.html"
-    And the file "assets/test.png-resized/100/test-50.png" should exist
+    Then I should see "/assets/everybody-loves-jalapeño-pineapple-cornbread.png-resized/100/everybody-loves-jalapeño-pineapple-cornbread-50.png 100w" in "_site/index.html"
+    And the file "assets/everybody-loves-jalapeño-pineapple-cornbread.png-resized/100/everybody-loves-jalapeño-pineapple-cornbread-50.png" should exist

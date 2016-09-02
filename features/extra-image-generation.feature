@@ -10,12 +10,12 @@ Feature: Extra image generation
           - width: 100
 
         extra_images:
-          - assets/test.png
+          - assets/everybody-loves-jalapeño-pineapple-cornbread.png
       """
 
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
-    Then the image "assets/resized/test-100x50.png" should have the dimensions "100x50"
+    Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
 
   Scenario: Using glob patterns
     Given I have a responsive_image configuration with:
@@ -29,7 +29,7 @@ Feature: Extra image generation
 
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
-    Then the image "assets/resized/test-100x50.png" should have the dimensions "100x50"
+    Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
 
   Scenario: No extra images
     Given I have a responsive_image configuration with:
@@ -40,4 +40,4 @@ Feature: Extra image generation
 
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
-    Then the file "assets/resized/test-100x50.png" should not exist
+    Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should not exist
