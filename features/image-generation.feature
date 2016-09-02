@@ -11,9 +11,9 @@ Feature: Responsive image generation
           - width: 100
       """
 
-    And I have a file "index.html" with "{% responsive_image path: assets/test.png alt: Foobar %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: Foobar %}"
     When I run Jekyll
-    Then the image "assets/resized/test-100x50.png" should have the dimensions "100x50"
+    Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
 
   Scenario: Handling subdirectories
     Given I have a responsive_image configuration with:
@@ -26,11 +26,11 @@ Feature: Responsive image generation
 
     And I have a file "index.html" with:
       """
-        {% responsive_image path: assets/test.png %}
+        {% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}
         {% responsive_image path: assets/subdir/test.png %}
-        {% responsive_image path: assets/test.png cache: true %}
+        {% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png cache: true %}
       """
 
     When I run Jekyll
-    Then the file "assets/resized/test-100.png" should exist
+    Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100.png" should exist
     And the file "assets/resized/subdir/test-100.png" should exist
