@@ -17,10 +17,9 @@ Gem::Specification.new do |spec|
     Its intended use is for sites which want to display responsive images using something like srcset or Imager.js.
   }
 
-  spec.files        = `git ls-files`.split($/)
-  spec.test_files   = `git ls-files -- {test,spec,features}/*`.split("\n")
-  spec.executables  = []
-  spec.require_path = 'lib'
+  spec.files         = `git ls-files -z lib/`.split("\u0000")
+  spec.executables   = []
+  spec.require_paths = ['lib']
 
   if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.0.0')
     max_jekyll_version = '3.0'
