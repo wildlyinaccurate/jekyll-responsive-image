@@ -14,6 +14,7 @@ Feature: Responsive image generation
     And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: Foobar %}"
     When I run Jekyll
     Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
+    And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
 
   Scenario: Handling subdirectories
     Given I have a responsive_image configuration with:
@@ -33,4 +34,6 @@ Feature: Responsive image generation
 
     When I run Jekyll
     Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100.png" should exist
+    And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100.png" should exist
     And the file "assets/resized/subdir/test-100.png" should exist
+    And the file "_site/assets/resized/subdir/test-100.png" should exist

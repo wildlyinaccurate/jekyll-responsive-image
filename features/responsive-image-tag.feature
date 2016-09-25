@@ -77,3 +77,4 @@ Feature: Jekyll responsive_image tag
     When I run Jekyll
     Then I should see "/assets/everybody-loves-jalapeño-pineapple-cornbread.png-resized/100/everybody-loves-jalapeño-pineapple-cornbread-50.png 100w" in "_site/index.html"
     And the file "assets/everybody-loves-jalapeño-pineapple-cornbread.png-resized/100/everybody-loves-jalapeño-pineapple-cornbread-50.png" should exist
+    And the file "_site/assets/everybody-loves-jalapeño-pineapple-cornbread.png-resized/100/everybody-loves-jalapeño-pineapple-cornbread-50.png" should exist

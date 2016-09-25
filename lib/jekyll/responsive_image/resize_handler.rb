@@ -32,7 +32,7 @@ module Jekyll
           # Ensure the generated file is copied to the _site directory
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
           ensure_output_dir_exists!(File.dirname(site_dest_filepath))
-          FileUtils.copy(filepath, site_dest_filepath)
+          FileUtils.copy_file(filepath, site_dest_filepath)
 
           i.destroy!
         end
