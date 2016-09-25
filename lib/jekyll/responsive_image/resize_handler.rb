@@ -17,22 +17,24 @@ module Jekyll
           filepath = format_output_path(config['output_path_format'], config['base_path'], image_path, width, height)
           resized.push(image_hash(config['base_path'], filepath, width, height))
 
-          # Don't resize images more than once
-          next if File.exist?(filepath)
+          site_source_filepath = File.expand_path(filepath, config[:site_source])
+          site_dest_filepath = File.expand_path(filepath, config[:site_dest])
 
-          ensure_output_dir_exists!(File.dirname(filepath))
+          # Don't resize images more than once
+          next if File.exist?(site_source_filepath)
+
+          ensure_output_dir_exists!(File.dirname(site_source_filepath))
+          ensure_output_dir_exists!(File.dirname(site_dest_filepath))
 
           Jekyll.logger.info "Generating #{filepath}"
 
           i = img.scale(ratio)
-          i.write(filepath) do |f|
+          i.write(site_source_filepath) do |f|
             f.quality = size['quality'] || config['default_quality']
           end
 
           # Ensure the generated file is copied to the _site directory
-          site_dest_filepath = File.expand_path(filepath, config[:site_dest])
-          ensure_output_dir_exists!(File.dirname(site_dest_filepath))
-          FileUtils.copy_file(filepath, site_dest_filepath)
+          FileUtils.copy_file(site_source_filepath, site_dest_filepath)
 
           i.destroy!
         end

@@ -4,7 +4,9 @@ module Jekyll
       include Jekyll::ResponsiveImage::Utils
 
       def make_config(site)
-        ResponsiveImage.defaults.dup.merge(site.config['responsive_image']).merge(:site_dest => site.dest)
+        ResponsiveImage.defaults.dup
+                       .merge(site.config['responsive_image'])
+                       .merge(:site_source => site.source, :site_dest => site.dest)
       end
 
       def keep_resized_image!(site, image)
@@ -20,13 +22,14 @@ module Jekyll
           site = context.registers[:site]
           config = make_config(site)
 
-          image = ImageProcessor.process(attributes['path'], config)
+          source_image_path = site.in_source_dir(attributes['path'].to_s)
+          image = ImageProcessor.process(source_image_path, config)
           attributes['original'] = image[:original]
           attributes['resized'] = image[:resized]
 
           attributes['resized'].each { |resized| keep_resized_image!(site, resized) }
 
-          image_template = attributes['template'] || config['template']
+          image_template = site.in_source_dir(attributes['template'] || config['template'])
           partial = File.read(image_template)
           template = Liquid::Template.parse(partial)
 
