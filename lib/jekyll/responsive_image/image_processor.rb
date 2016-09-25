@@ -3,20 +3,20 @@ module Jekyll
     class ImageProcessor
       include ResponsiveImage::Utils
 
-      def process(image_path, config)
-        raise SyntaxError.new("Invalid image path specified: #{image_path}") unless File.file?(image_path)
+      def process(absolute_image_path, relative_image_path, config)
+        raise SyntaxError.new("Invalid image path specified: #{absolute_image_path}") unless File.file?(absolute_image_path)
 
         resize_handler = ResizeHandler.new
-        img = Magick::Image::read(image_path).first
+        img = Magick::Image::read(absolute_image_path).first
 
         {
-          original: image_hash(config['base_path'], image_path, img.columns, img.rows),
+          original: image_hash(config['base_path'], relative_image_path, img.columns, img.rows),
           resized: resize_handler.resize_image(img, config),
         }
       end
 
-      def self.process(image_path, config)
-        self.new.process(image_path, config)
+      def self.process(absolute_image_path, relative_image_path, config)
+        self.new.process(absolute_image_path, relative_image_path, config)
       end
     end
   end

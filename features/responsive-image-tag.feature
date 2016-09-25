@@ -43,27 +43,26 @@ Feature: Jekyll responsive_image tag
           - width: 100
           - width: 200
       """
-    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}"
+    And I have a file "index.html" with "{% responsive_image path: assets/subdir/test.png %}"
     When I run Jekyll
-    Then I should see "<img alt=\"\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
-    And I should see "/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png 100w" in "_site/index.html"
-    And I should see "/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-200x100.png 200w" in "_site/index.html"
-    And I should see "/assets/everybody-loves-jalapeño-pineapple-cornbread.png 300w" in "_site/index.html"
-    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
-    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-200x100.png" should exist
+    Then I should see "<img alt=\"\" src=\"/assets/subdir/test.png\"" in "_site/index.html"
+    And I should see "/assets/resized/test-100x50.png 100w,/assets/resized/test-200x100.png 200w,/assets/subdir/test.png 300w" in "_site/index.html"
+
+    And the file "assets/resized/test-100x50.png" should exist
+    And the file "assets/resized/test-200x100.png" should exist
 
   Scenario: Overriding the template
     Given I have a responsive_image configuration with:
       """
         template: _includes/responsive-image.html
         sizes:
+          - width: 50
           - width: 100
-          - width: 200
-          - width: 300
+          - width: 150
       """
     And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png template: _includes/custom-template.html %}"
     When I run Jekyll
-    Then I should see "[100, 200, 300]" in "_site/index.html"
+    Then I should see "[50, 100, 150]" in "_site/index.html"
 
   Scenario: Overriding the generated filenames
     Given I have a responsive_image configuration with:

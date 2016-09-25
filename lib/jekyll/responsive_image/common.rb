@@ -22,8 +22,8 @@ module Jekyll
           site = context.registers[:site]
           config = make_config(site)
 
-          source_image_path = site.in_source_dir(attributes['path'].to_s)
-          image = ImageProcessor.process(source_image_path, config)
+          absolute_image_path = site.in_source_dir(attributes['path'].to_s)
+          image = ImageProcessor.process(absolute_image_path, attributes['path'], config)
           attributes['original'] = image[:original]
           attributes['resized'] = image[:resized]
 

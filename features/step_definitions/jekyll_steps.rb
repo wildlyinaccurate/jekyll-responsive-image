@@ -39,7 +39,8 @@ Given /^I have a file "(.+)" with "(.+)"$/ do |path, contents|
 end
 
 Then /^I should see "(.+)" in "(.*)"$/ do |text, file|
-  assert_match(Regexp.new(text), File.open(file).readlines.join)
+  contents = File.open(file).readlines.join
+  assert contents.inspect.include?(text), "Expected to find #{text.inspect} in #{contents.inspect}"
 end
 
 Then /^the file "(.+)" should exist$/ do |path|
