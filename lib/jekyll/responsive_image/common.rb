@@ -7,9 +7,9 @@ module Jekyll
         ResponsiveImage.defaults.dup.merge(site.config['responsive_image']).merge(:site_dest => site.dest)
       end
 
-      def keep_resized_image(site, image)
-        resized_dir = File.dirname(image['path'])
-        site.config['keep_files'] << resized_dir unless site.config['keep_files'].include?(resized_dir)
+      def keep_resized_image!(site, image)
+        keep_dir = File.dirname(image['path'])
+        site.config['keep_files'] << keep_dir unless site.config['keep_files'].include?(keep_dir)
       end
 
       def render_responsive_image(context, attributes)
@@ -24,7 +24,7 @@ module Jekyll
           attributes['original'] = image[:original]
           attributes['resized'] = image[:resized]
 
-          attributes['resized'].each { |resized| keep_resized_image(site, resized) }
+          attributes['resized'].each { |resized| keep_resized_image!(site, resized) }
 
           image_template = attributes['template'] || config['template']
           partial = File.read(image_template)

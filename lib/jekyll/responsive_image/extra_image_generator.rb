@@ -9,7 +9,7 @@ module Jekyll
         config['extra_images'].each do |pathspec|
           Dir.glob(pathspec) do |path|
             result = ImageProcessor.process(path, config)
-            result[:resized].each { |image| keep_resized_image(site, image) }
+            result[:resized].each { |image| keep_resized_image!(site, image) }
           end
         end
       end
