@@ -7,7 +7,10 @@ module Jekyll
         config = make_config(site)
 
         config['extra_images'].each do |pathspec|
-          Dir.glob(pathspec) { |path| ImageProcessor.process(path, config) }
+          Dir.glob(site.in_source_dir(pathspec)) do |path|
+            result = ImageProcessor.process(path, config)
+            result[:resized].each { |image| keep_resized_image!(site, image) }
+          end
         end
       end
     end
