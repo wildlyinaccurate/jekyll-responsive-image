@@ -37,3 +37,18 @@ Feature: Responsive image generation
     And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100.png" should exist
     And the file "assets/resized/subdir/test-100.png" should exist
     And the file "_site/assets/resized/subdir/test-100.png" should exist
+
+  Scenario: Honouring Jekyll 'source' configuration
+    Given I have copied my site to "sub-dir/my-site-copy"
+    And I have a configuration with:
+      """
+        source: sub-dir/my-site-copy
+        responsive_image:
+          template: _includes/responsive-image.html
+          sizes:
+            - width: 100
+      """
+    And I have a file "sub-dir/my-site-copy/index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png %}"
+    When I run Jekyll
+    Then the image "sub-dir/my-site-copy/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
+    And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
