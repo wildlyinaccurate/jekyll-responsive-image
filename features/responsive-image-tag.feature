@@ -57,13 +57,13 @@ Feature: Jekyll responsive_image tag
       """
         template: _includes/responsive-image.html
         sizes:
+          - width: 50
           - width: 100
-          - width: 200
-          - width: 300
+          - width: 150
       """
     And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png template: _includes/custom-template.html %}"
     When I run Jekyll
-    Then I should see "[100, 200, 300]" in "_site/index.html"
+    Then I should see "[50, 100, 150]" in "_site/index.html"
 
   Scenario: Overriding the generated filenames
     Given I have a responsive_image configuration with:
