@@ -65,6 +65,7 @@ responsive_image:
   #
   output_path_format: assets/resized/%{width}/%{basename}
 
+  # [Optional, Default: []]
   # By default, only images referenced by the responsive_image and responsive_image_block
   # tags are resized. Here you can set a list of paths or path globs to resize other
   # images. This is useful for resizing images which will be referenced from stylesheets.
