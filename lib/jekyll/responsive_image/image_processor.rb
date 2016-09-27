@@ -11,7 +11,7 @@ module Jekyll
         image = Magick::Image::read(path).first
 
         {
-          original: Image.new,
+          original: Image.new(image.filename, image.columns, image.rows, config),
           resized: ImageResizer.resize(image, config),
         }
       end
