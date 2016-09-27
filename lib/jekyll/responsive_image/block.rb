@@ -1,20 +1,11 @@
-
-
-
-
-
-
-
-
-
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     class Block < Liquid::Block
-      include Jekyll::ResponsiveImage::Common
+      include Jekyll::ResponsiveImage::Utils
 
       def render(context)
         attributes = YAML.load(super)
-        render_responsive_image(context, attributes)
+        Renderer.new(context.registers[:site], attributes).render_responsive_image
       end
     end
   end

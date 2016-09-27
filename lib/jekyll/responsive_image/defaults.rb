@@ -1,5 +1,5 @@
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     @defaults = {
       'default_quality'    => 85,
       'base_path'          => 'assets',

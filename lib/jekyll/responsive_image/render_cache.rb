@@ -1,5 +1,5 @@
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     class RenderCache
       attr_accessor :store
 
