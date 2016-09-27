@@ -3,7 +3,7 @@ if ENV['CI']
   Coveralls.wear!
 end
 
-require 'test/unit'
+require 'test/unit/assertions'
 require 'jekyll/responsive_image'
 
 TEST_DIR = File.join('/', 'tmp', 'jekyll')
@@ -14,3 +14,5 @@ def run_jekyll(options = {})
   site = Jekyll::Site.new(options)
   site.process
 end
+
+World(Test::Unit::Assertions)

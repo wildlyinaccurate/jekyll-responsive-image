@@ -1,5 +1,3 @@
-include Test::Unit::Assertions
-
 When /^I run Jekyll$/ do
   run_jekyll
 end
