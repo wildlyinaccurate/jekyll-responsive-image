@@ -1,8 +1,6 @@
 module Jekyll
   module ResponsiveImage
     class ResizeHandler
-      include ResponsiveImage::Utils
-
       def resize_image(img, config)
         resized = []
 

@@ -1,11 +1,9 @@
 module Jekyll
   module ResponsiveImage
     class ExtraImageGenerator < Jekyll::Generator
-      include Jekyll::ResponsiveImage::Utils
-
       def generate(site)
         renderer = Renderer.new(site, {})
-        config = renderer.make_config
+        config = Config.new(site).to_h
 
         config['extra_images'].each do |pathspec|
           Dir.glob(site.in_source_dir(pathspec)) do |image_path|

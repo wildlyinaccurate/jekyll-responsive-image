@@ -1,4 +1,5 @@
 require 'bundler'
+require 'rubocop/rake_task'
 
 begin
   Bundler.setup(:default, :development)
@@ -13,12 +14,14 @@ require 'jekyll/responsive_image/version'
 require 'cucumber/rake/task'
 require 'coveralls/rake/task'
 
+RuboCop::RakeTask.new
+
 Cucumber::Rake::Task.new(:features)
 
 Coveralls::RakeTask.new
 task :features_with_coveralls => [:features, 'coveralls:push']
 
-task :default => [:features]
+task :default => [:rubocop, :features]
 
 task :release do |t|
   system "gem build jekyll-responsive_image.gemspec"

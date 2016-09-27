@@ -13,7 +13,7 @@ module Jekyll
       end
 
       def render(context)
-        Renderer.new(context.registers[:site], @attributes).render_responsive_image
+        Renderer.new(context.registers[:site], @attributes).render
       end
     end
   end

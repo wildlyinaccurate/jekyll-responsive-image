@@ -2,7 +2,7 @@ sudo: false
 language: ruby
 bundler_args: --without debug
 before_script: bundle exec jekyll --version
-script: bundle exec rake features_with_coveralls
+script: bundle exec rake rubocop features_with_coveralls
 rvm:
   - 2.2
   - 2.1
