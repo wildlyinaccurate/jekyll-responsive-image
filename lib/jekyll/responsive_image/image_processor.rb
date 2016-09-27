@@ -1,5 +1,5 @@
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     class ImageProcessor
       include ResponsiveImage::Utils
 

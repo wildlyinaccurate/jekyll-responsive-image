@@ -1,8 +1,13 @@
 require 'pathname'
 
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     module Utils
+      def keep_resized_image!(site, image)
+        keep_dir = File.dirname(image['path'])
+        site.config['keep_files'] << keep_dir unless site.config['keep_files'].include?(keep_dir)
+      end
+
       def symbolize_keys(hash)
         result = {}
         hash.each_key do |key|
