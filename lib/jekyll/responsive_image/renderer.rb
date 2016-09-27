@@ -8,18 +8,12 @@ module Jekyll
         @attributes = attributes
       end
 
-      def make_config
-        ResponsiveImage.defaults.dup
-                       .merge(@site.config['responsive_image'])
-                       .merge(:site_source => @site.source, :site_dest => @site.dest)
-      end
-
       def render_responsive_image
         cache_key = @attributes.to_s
         result = @attributes['cache'] ? RenderCache.get(cache_key) : nil
 
         if result.nil?
-          config = make_config
+          config = Config.new(@site).to_h
 
           absolute_image_path = @site.in_source_dir(@attributes['path'].to_s)
           image = ImageProcessor.process(absolute_image_path, @attributes['path'], config)

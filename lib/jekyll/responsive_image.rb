@@ -5,7 +5,7 @@ require 'jekyll'
 require 'rmagick'
 
 require 'jekyll/responsive_image/version'
-require 'jekyll/responsive_image/defaults'
+require 'jekyll/responsive_image/config'
 require 'jekyll/responsive_image/utils'
 require 'jekyll/responsive_image/render_cache'
 require 'jekyll/responsive_image/image_processor'
