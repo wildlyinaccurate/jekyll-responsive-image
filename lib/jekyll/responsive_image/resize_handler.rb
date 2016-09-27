@@ -23,10 +23,10 @@ module Jekyll
           # Don't resize images more than once
           next if File.exist?(site_source_filepath)
 
-          ensure_output_dir_exists!(File.dirname(site_source_filepath))
-          ensure_output_dir_exists!(File.dirname(site_dest_filepath))
+          ensure_output_dir_exists!(site_source_filepath)
+          ensure_output_dir_exists!(site_dest_filepath)
 
-          Jekyll.logger.info "Generating #{filepath}"
+          Jekyll.logger.info "Generating #{site_source_filepath}"
 
           i = img.scale(ratio)
           i.write(site_source_filepath) do |f|
@@ -34,6 +34,7 @@ module Jekyll
           end
 
           # Ensure the generated file is copied to the _site directory
+          Jekyll.logger.info "Copying resized image to #{site_dest_filepath}"
           FileUtils.copy_file(site_source_filepath, site_dest_filepath)
 
           i.destroy!
@@ -44,11 +45,19 @@ module Jekyll
         resized
       end
 
+      def format_output_path(format, base_path, image_path, width, height)
+        params = symbolize_keys(image_hash(base_path, image_path, width, height))
+
+        Pathname.new(format % params).cleanpath.to_s
+      end
+
       def needs_resizing?(img, width)
         img.columns > width
       end
 
-      def ensure_output_dir_exists!(dir)
+      def ensure_output_dir_exists!(path)
+        dir = File.dirname(path)
+
         unless Dir.exist?(dir)
           Jekyll.logger.info "Creating output directory #{dir}"
           FileUtils.mkdir_p(dir)

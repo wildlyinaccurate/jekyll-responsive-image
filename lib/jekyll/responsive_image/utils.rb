@@ -16,12 +16,6 @@ module Jekyll
         result
       end
 
-      def format_output_path(format, base_path, image_path, width, height)
-        params = symbolize_keys(image_hash(base_path, image_path, width, height))
-
-        Pathname.new(format % params).cleanpath.to_s
-      end
-
       # Build a hash containing image information
       def image_hash(base_path, image_path, width, height)
         {
