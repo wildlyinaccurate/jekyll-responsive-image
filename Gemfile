@@ -1,4 +1,5 @@
 source 'https://rubygems.org/'
+
 gemspec
 
 group :development do
@@ -8,7 +9,8 @@ group :development do
 
   gem 'coveralls', :require => false
 
-  platform :ruby_18, :ruby_19 do
+  platform :ruby_19 do
     gem 'simplecov', '>= 0.10', '< 0.12'
+    gem 'term-ansicolor', '1.3.2'
   end
 end
