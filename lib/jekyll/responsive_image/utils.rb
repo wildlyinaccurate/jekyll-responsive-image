@@ -17,10 +17,10 @@ module Jekyll
       end
 
       # Build a hash containing image information
-      def image_hash(base_path, image_path, width, height)
+      def image_hash(config, image_path, width, height)
         {
           'path'      => image_path,
-          'dirname'   => relative_dirname(base_path, image_path),
+          'dirname'   => relative_dirname(config, image_path),
           'basename'  => File.basename(image_path),
           'filename'  => File.basename(image_path, '.*'),
           'extension' => File.extname(image_path).delete('.'),
@@ -29,9 +29,9 @@ module Jekyll
         }
       end
 
-      def relative_dirname(base_path, image_path)
-        path = Pathname.new(image_path).expand_path
-        base = Pathname.new(base_path).expand_path
+      def relative_dirname(config, image_path)
+        path = Pathname.new(File.expand_path(image_path, config[:site_source]))
+        base = Pathname.new(File.expand_path(config['base_path'], config[:site_source]))
 
         path.relative_path_from(base).dirname.to_s.delete('.')
       end

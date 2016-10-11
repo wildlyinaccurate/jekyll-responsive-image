@@ -14,12 +14,8 @@ module Jekyll
       end
 
       def to_h
-        config = DEFAULTS.merge(@site.config['responsive_image'])
-                         .merge(site_source: @site.source, site_dest: @site.dest)
-
-         config['base_path'] = @site.in_source_dir(config['base_path'])
-
-         config
+        DEFAULTS.merge(@site.config['responsive_image'])
+                .merge(site_source: @site.source, site_dest: @site.dest)
       end
     end
   end

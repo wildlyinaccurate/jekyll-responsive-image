@@ -44,6 +44,7 @@ Feature: Responsive image generation
       """
         source: my-site-copy/src
         responsive_image:
+          base_path: assets
           template: _includes/responsive-image.html
           output_path_format: assets/resized/%{dirname}/%{width}/%{basename}
           sizes:
@@ -51,5 +52,5 @@ Feature: Responsive image generation
       """
     And I have a file "my-site-copy/src/index.html" with "{% responsive_image path: assets/subdir/test.png %}"
     When I run Jekyll
-    Then the image "my-site-copy/src/assets/resized/subdir/test-100x50.png" should have the dimensions "100x50"
-    And the file "_site/assets/resized/subdir/test-100x50.png" should exist
+    Then the image "my-site-copy/src/assets/resized/subdir/100/test.png" should have the dimensions "100x50"
+    And the file "_site/assets/resized/subdir/100/test.png" should exist

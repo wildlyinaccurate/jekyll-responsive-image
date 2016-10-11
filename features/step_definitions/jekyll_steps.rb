@@ -41,6 +41,10 @@ Then /^I should see "(.+)" in "(.*)"$/ do |text, file|
   assert contents.inspect.include?(text), "Expected to find #{text.inspect} in #{contents.inspect}"
 end
 
+Then /^the file "(.+)" should contain:$/ do |file, contents|
+  assert_equal contents.strip, File.open(file).readlines.join.strip
+end
+
 Then /^the file "(.+)" should exist$/ do |path|
   assert File.exist?(path)
 end

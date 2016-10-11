@@ -14,8 +14,8 @@ module Jekyll
           next unless needs_resizing?(img, width)
 
           image_path = img.filename.force_encoding(Encoding::UTF_8)
-          filepath = format_output_path(config['output_path_format'], config['base_path'], image_path, width, height)
-          resized.push(image_hash(config['base_path'], filepath, width, height))
+          filepath = format_output_path(config['output_path_format'], config, image_path, width, height)
+          resized.push(image_hash(config, filepath, width, height))
 
           site_source_filepath = File.expand_path(filepath, config[:site_source])
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
@@ -45,8 +45,8 @@ module Jekyll
         resized
       end
 
-      def format_output_path(format, base_path, image_path, width, height)
-        params = symbolize_keys(image_hash(base_path, image_path, width, height))
+      def format_output_path(format, config, image_path, width, height)
+        params = symbolize_keys(image_hash(config, image_path, width, height))
 
         Pathname.new(format % params).cleanpath.to_s
       end
