@@ -14,5 +14,6 @@ group :development do
     gem 'rest-client', '>= 1.0', '< 2.0'
     gem 'simplecov', '>= 0.10', '< 0.12'
     gem 'term-ansicolor', '1.3.2'
+    gem 'tins', '1.6.0'
   end
 end
