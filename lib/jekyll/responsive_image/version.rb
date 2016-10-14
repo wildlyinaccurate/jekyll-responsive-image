@@ -1,5 +1,5 @@
 module Jekyll
   module ResponsiveImage
-    VERSION = '1.0.0.pre4'.freeze
+    VERSION = '1.0.0'.freeze
   end
 end
