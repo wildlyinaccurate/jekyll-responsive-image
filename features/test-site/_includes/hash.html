@@ -1,0 +1,16 @@
+path: {{ original.path }}
+width: {{ original.width }}
+height: {{ original.height }}
+basename: {{ original.basename }}
+dirname: {{ original.dirname }}
+filename: {{ original.filename }}
+extension: {{ original.extension }}
+{% for i in resized %}
+path: {{ i.path }}
+width: {{ i.width }}
+height: {{ i.height }}
+basename: {{ i.basename }}
+dirname: {{ i.dirname }}
+filename: {{ i.filename }}
+extension: {{ i.extension }}
+{% endfor %}

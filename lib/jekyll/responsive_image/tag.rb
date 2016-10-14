@@ -1,8 +1,6 @@
 module Jekyll
-  class ResponsiveImage
+  module ResponsiveImage
     class Tag < Liquid::Tag
-      include Jekyll::ResponsiveImage::Common
-
       def initialize(tag_name, markup, tokens)
         super
 
@@ -15,7 +13,7 @@ module Jekyll
       end
 
       def render(context)
-        render_responsive_image(context, @attributes)
+        Renderer.new(context.registers[:site], @attributes).render_responsive_image
       end
     end
   end

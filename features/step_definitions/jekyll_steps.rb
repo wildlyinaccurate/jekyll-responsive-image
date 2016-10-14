@@ -1,5 +1,3 @@
-include Test::Unit::Assertions
-
 When /^I run Jekyll$/ do
   run_jekyll
 end
@@ -41,6 +39,10 @@ end
 Then /^I should see "(.+)" in "(.*)"$/ do |text, file|
   contents = File.open(file).readlines.join
   assert contents.inspect.include?(text), "Expected to find #{text.inspect} in #{contents.inspect}"
+end
+
+Then /^the file "(.+)" should contain:$/ do |file, contents|
+  assert_equal contents.strip, File.open(file).readlines.join.strip
 end
 
 Then /^the file "(.+)" should exist$/ do |path|
