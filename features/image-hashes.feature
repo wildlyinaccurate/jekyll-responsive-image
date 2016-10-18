@@ -11,7 +11,6 @@ Feature: Image hashes inside responsive image templates
           output_path_format: assets/resized/%{dirname}/%{width}/%{basename}
           sizes:
             - width: 100
-            - width: 120
       """
     And I have a file "index.html" with "{% responsive_image path: assets/subdir/test.png %}"
     When I run Jekyll
@@ -30,14 +29,6 @@ Feature: Image hashes inside responsive image templates
       height: 50
       basename: test.png
       dirname: resized/subdir/100
-      filename: test
-      extension: png
-
-      path: assets/resized/subdir/120/test.png
-      width: 120
-      height: 60
-      basename: test.png
-      dirname: resized/subdir/120
       filename: test
       extension: png
       """
