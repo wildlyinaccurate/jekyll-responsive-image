@@ -4,7 +4,7 @@ if ENV['CI']
 end
 
 require 'test/unit/assertions'
-require 'jekyll/responsive_image'
+require 'jekyll-responsive-image'
 
 TEST_DIR = File.join('/', 'tmp', 'jekyll')
 
