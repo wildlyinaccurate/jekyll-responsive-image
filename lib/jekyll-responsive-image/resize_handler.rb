@@ -30,6 +30,7 @@ module Jekyll
 
           i = img.scale(ratio)
           i.write(site_source_filepath) do |f|
+            f.interlace = i.interlace
             f.quality = size['quality'] || config['default_quality']
           end
 
