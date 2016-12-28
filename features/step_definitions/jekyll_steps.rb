@@ -59,6 +59,12 @@ Then /^the image "(.+)" should have the dimensions "(\d+)x(\d+)"$/ do |path, wid
   img.destroy!
 end
 
+Then /^the image "(.+)" should be interlaced$/ do |path|
+  img = Magick::Image::read(path).first
+  assert_equal Magick::JPEGInterlace, img.interlace
+  img.destroy!
+end
+
 def write_file(path, contents)
   File.open(path, 'w') do |f|
     f.write(contents)
