@@ -9,7 +9,7 @@ rescue Bundler::BundlerError => e
 end
 
 require 'rake'
-require 'jekyll/responsive_image/version'
+require 'jekyll-responsive-image/version'
 require 'cucumber/rake/task'
 require 'coveralls/rake/task'
 

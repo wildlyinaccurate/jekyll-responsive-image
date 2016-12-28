@@ -1,6 +1,6 @@
-# Jekyll Responsive Images
+# jekyll-responsive-image
 
-Jekyll Responsive Images is a [Jekyll](http://jekyllrb.com/) plugin and utility for automatically resizing images. Its intended use is for sites which want to display responsive images using something like [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#Specifications) or [Imager.js](https://github.com/BBC-News/Imager.js/).
+A [Jekyll](http://jekyllrb.com/) plugin and utility for automatically resizing images. Its intended use is for sites which want to display responsive images using something like [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Img#Specifications) or [Imager.js](https://github.com/BBC-News/Imager.js/).
 
 [![Build Status](https://img.shields.io/travis/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-image)
 [![Coverage Status](https://img.shields.io/coveralls/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://coveralls.io/repos/github/wildlyinaccurate/jekyll-responsive-image/badge.svg?branch=master)
@@ -11,16 +11,17 @@ Jekyll Responsive Images is a [Jekyll](http://jekyllrb.com/) plugin and utility 
 First, install the gem:
 
 ```
-$ gem install jekyll-responsive_image
+$ gem install jekyll-responsive-image
 ```
 
 Then you can either add it to the `gems` section of your `_config.yml`:
 
 ```yaml
-gems: [jekyll/responsive_image]
+gems:
+  - jekyll-responsive-image
 ```
 
-Or you can copy the contents of [`responsive_image.rb`](lib/jekyll/responsive_image.rb) into your `_plugins` directory.
+Or you can copy the contents of [`responsive_image.rb`](lib/jekyll-responsive-image.rb) into your `_plugins` directory.
 
 ## Configuration
 
