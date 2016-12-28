@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Jekyll::ResponsiveImage::VERSION
   spec.authors       = ['Joseph Wynn']
   spec.email         = ['joseph@wildlyinaccurate.com']
-  spec.summary       = 'Responsive images management for Jekyll'
+  spec.summary       = 'Responsive image management for Jekyll'
   spec.homepage      = 'https://github.com/wildlyinaccurate/jekyll-responsive-image'
   spec.licenses      = ['MIT']
   spec.description   = %q{
