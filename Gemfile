@@ -7,5 +7,6 @@ group :development do
   gem 'cucumber', '~> 2.1'
   gem 'test-unit', '~> 3.1'
 
+  gem 'simplecov', :require => false
   gem 'coveralls', :require => false
 end
