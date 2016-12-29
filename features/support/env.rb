@@ -1,7 +1,11 @@
-if ENV['CI']
-  require 'coveralls'
-  Coveralls.wear!
-end
+require 'simplecov'
+require 'coveralls'
+
+formatters = [SimpleCov::Formatter::HTMLFormatter]
+formatters << Coveralls::SimpleCov::Formatter if ENV['CI']
+
+SimpleCov.formatters = formatters
+SimpleCov.start
 
 require 'test/unit/assertions'
 require 'jekyll-responsive-image'
