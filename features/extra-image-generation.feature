@@ -12,7 +12,6 @@ Feature: Extra image generation
           - assets/everybody-loves-jalapeño-pineapple-cornbread.png
           - assets/*.jpeg
       """
-
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
     Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
@@ -31,7 +30,6 @@ Feature: Extra image generation
           extra_images:
             - assets/*.png
       """
-
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
     Then the image "sub-dir/my-site-copy/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
@@ -43,7 +41,6 @@ Feature: Extra image generation
         sizes:
           - width: 100
       """
-
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
     Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should not exist

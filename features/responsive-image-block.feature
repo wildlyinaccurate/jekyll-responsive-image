@@ -8,12 +8,10 @@ Feature: Jekyll responsive_image_block tag
     And I have a file "index.html" with:
       """
       {% assign path = 'assets/everybody-loves-jalapeño-pineapple-cornbread.png' %}
-      {% assign alt = 'Lorem ipsum' %}
-
       {% responsive_image_block %}
           path: {{ path }}
           title: Magic rainbow adventure!
-          alt: {{ alt }}
+          alt: Lorem ipsum
       {% endresponsive_image_block %}
       """
     When I run Jekyll
@@ -41,7 +39,6 @@ Feature: Jekyll responsive_image_block tag
       """
       {% assign path = 'assets/everybody-loves-jalapeño-pineapple-cornbread.png' %}
       {% assign alt = 'Lorem ipsum' %}
-
       {% responsive_image_block %}
           path: {{ path }}
 

@@ -1,7 +1,6 @@
 Feature: Jekyll responsive_image tag
   As a Jekyll template developer
   I want to include responsive images in my page
-  In order to best cater for devices of all sizes
 
   Scenario: Simple image tag
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
