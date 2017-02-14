@@ -52,6 +52,19 @@ Feature: Jekyll responsive_image_block tag
     When I run Jekyll
     Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\"" in "_site/index.html"
 
+  Scenario: Handling excerpts
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
+    And I have a file "_posts/2001-01-01-test-post.md" with:
+      """
+      {% responsive_image_block %}
+          path: assets/everybody-loves-jalapeño-pineapple-cornbread.png
+          alt: {{ page.id }}
+      {% endresponsive_image_block %}
+      """
+    And I have a file "index.html" with "{% for post in site.posts %}{{ post.excerpt }}{% endfor %}"
+    When I run Jekyll
+    Then I should see "<img alt=\"/2001/01/01/test-post\"" in "_site/index.html"
+
   Scenario: Handling a nil path
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with:
