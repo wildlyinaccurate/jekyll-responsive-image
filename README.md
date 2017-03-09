@@ -46,6 +46,11 @@ responsive_image:
     - width: 800
     - width: 1400
       quality: 90
+  
+  # [Optional, Default: false]
+  # Rotate resized images depending on their EXIF rotation attribute. Useful for
+  # working with JPGs directly from digital cameras and smartphones
+  respect_exif_rotation: false
 
   # [Optional, Default: assets]
   # The base directory where assets are stored. This is used to determine the
@@ -129,6 +134,22 @@ You will need to create a template in order to use the `responsive_image` tag. B
 {% endcapture %}
 
 <img src="/{{ path }}" alt="{{ alt }}" srcset="{{ srcset | strip_newlines }} /{{ original.path }} {{ original.width }}w">
+```
+
+#### Responsive image with `srcset` where the largest resized image is the default
+
+> **Note:** This is useful if you don't want your originals to appear on your site. For example, if you're uploading full-res images directly from a device.
+ 
+```twig
+{% capture srcset %}
+    {% for i in resized %}
+        /{{ i.path }} {{ i.width }}w,
+    {% endfor %}
+{% endcapture %}
+
+{% assign largest = resized | sort: 'width' | last %}
+
+<img src="/{{ largest.path }}" alt="{{ alt }}" srcset="{{ srcset | strip_newlines }} /{{ original.path }} {{ original.width }}w">
 ```
 
 #### Responsive images with `<picture>`
