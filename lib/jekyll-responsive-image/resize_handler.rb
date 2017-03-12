@@ -4,7 +4,8 @@ module Jekyll
       include ResponsiveImage::Utils
 
       def resize_image(img, config)
-        img.auto_orient! if config['respect_exif_rotation']
+        img.auto_orient! if config['auto_rotate']
+
         resized = []
 
         config['sizes'].each do |size|
