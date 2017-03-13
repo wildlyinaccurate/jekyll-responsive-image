@@ -6,7 +6,8 @@ module Jekyll
         'base_path'          => 'assets',
         'output_path_format' => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
         'sizes'              => [],
-        'extra_images'       => []
+        'extra_images'       => [],
+        'auto_rotate'        => false
       }
 
       def initialize(site)

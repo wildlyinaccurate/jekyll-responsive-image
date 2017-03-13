@@ -62,3 +62,31 @@ Feature: Responsive image generation
     When I run Jekyll
     Then the image "my-site-copy/src/assets/resized/subdir/100/test.png" should have the dimensions "100x50"
     And the file "_site/assets/resized/subdir/100/test.png" should exist
+
+  Scenario: Images can be auto-rotated based on EXIF rotation
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+        auto_rotate: true
+      """
+    And I have a file "index.html" with "{% responsive_image path: assets/exif-rotation.jpeg %}"
+    When I run Jekyll
+    Then the file "_site/assets/resized/exif-rotation-100x200.jpeg" should exist
+
+  Scenario: Images aren't auto-rotated by default
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+      """
+    And I have a file "index.html" with:
+      """
+        {% responsive_image path: assets/exif-rotation.jpeg %}
+        {% responsive_image path: assets/progressive.jpeg %}
+      """
+    When I run Jekyll
+    Then the file "_site/assets/resized/exif-rotation-100x50.jpeg" should exist
+    Then the file "_site/assets/resized/progressive-100x50.jpeg" should exist
