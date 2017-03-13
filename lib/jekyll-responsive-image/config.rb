@@ -2,12 +2,12 @@ module Jekyll
   module ResponsiveImage
     class Config
       DEFAULTS = {
-        'default_quality'       => 85,
-        'base_path'             => 'assets',
-        'output_path_format'    => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
-        'sizes'                 => [],
-        'extra_images'          => [],
-        'respect_exif_rotation' => false
+        'default_quality'    => 85,
+        'base_path'          => 'assets',
+        'output_path_format' => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
+        'sizes'              => [],
+        'extra_images'       => [],
+        'auto_rotate'        => false
       }
 
       def initialize(site)
