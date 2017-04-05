@@ -1,8 +1,4 @@
 Feature: Responsive image generation
-  As a Jekyll user
-  I want to resize my images
-  In order to render them on my pages
-
   Scenario: Resizing images
     Given I have a responsive_image configuration with:
       """

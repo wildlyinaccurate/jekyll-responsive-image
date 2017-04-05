@@ -1,8 +1,4 @@
 Feature: Image hashes inside responsive image templates
-  As a Jekyll template developer
-  I want to have access to image hashes
-  In order to create custom responsive image templates
-
   Scenario: Using the {% responsive_image %} tag
     Given I have copied my site to "my-site-copy/src"
     And I have a configuration with:

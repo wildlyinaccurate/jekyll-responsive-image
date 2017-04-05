@@ -1,7 +1,4 @@
 Feature: Jekyll responsive_image tag
-  As a Jekyll template developer
-  I want to include responsive images in my page
-
   Scenario: Simple image tag
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
     And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: Foobar %}"
@@ -21,10 +18,7 @@ Feature: Jekyll responsive_image tag
 
   Scenario: Adding custom attributes
     Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
-    And I have a file "index.html" with:
-      """
-      {% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: 'Foobar bazbar' title: "Lorem Ipsum" %}
-      """
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: 'Foobar bazbar' title: 'Lorem Ipsum' %}"
     When I run Jekyll
     Then I should see "<img alt=\"Foobar bazbar\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\" title=\"Lorem Ipsum\"" in "_site/index.html"
 
