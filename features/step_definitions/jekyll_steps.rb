@@ -65,6 +65,12 @@ Then /^the image "(.+)" should be interlaced$/ do |path|
   img.destroy!
 end
 
+Then /^the image "(.+)" should be rotated$/ do |path|
+  img = Magick::Image::read(path).first
+  assert_equal Magick::RightTopOrientation, img.orientation
+  img.destroy!
+end
+
 def write_file(path, contents)
   File.open(path, 'w') do |f|
     f.write(contents)

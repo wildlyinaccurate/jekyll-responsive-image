@@ -31,7 +31,7 @@ Feature: Responsive image generation
     And the file "assets/resized/subdir/test-100.png" should exist
     And the file "_site/assets/resized/subdir/test-100.png" should exist
 
-  Scenario: Honouring source image interlace mode
+  Scenario: Honouring source image interlace mode and rotation
     Given I have a responsive_image configuration with:
       """
         template: _includes/responsive-image.html
@@ -41,6 +41,7 @@ Feature: Responsive image generation
     And I have a file "index.html" with "{% responsive_image path: assets/progressive.jpeg %}"
     When I run Jekyll
     Then the image "assets/resized/progressive-100x50.jpeg" should be interlaced
+    And the image "assets/resized/progressive-100x50.jpeg" should be rotated
 
   Scenario: Honouring Jekyll 'source' configuration
     Given I have copied my site to "my-site-copy/src"
