@@ -13,20 +13,25 @@ module Jekyll
           ratio = width.to_f / img.columns.to_f
           height = (img.rows.to_f * ratio).round
 
-          next unless needs_resizing?(img, width)
-
           image_path = img.filename.force_encoding(Encoding::UTF_8)
           filepath = format_output_path(config['output_path_format'], config, image_path, width, height)
-          resized.push(image_hash(config, filepath, width, height))
 
           site_source_filepath = File.expand_path(filepath, config[:site_source])
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
 
-          # Don't resize images more than once
-          next if File.exist?(site_source_filepath)
-
           ensure_output_dir_exists!(site_source_filepath)
           ensure_output_dir_exists!(site_dest_filepath)
+
+          unless needs_resizing?(img, width)
+            site_source_filepath = File.expand_path(image_path, config[:site_source])
+            FileUtils.copy_file(site_source_filepath, site_dest_filepath)
+            next
+          end
+
+          resized.push(image_hash(config, filepath, width, height))
+
+          # Don't resize images more than once
+          next if File.exist?(site_source_filepath)
 
           Jekyll.logger.info "Generating #{site_source_filepath}"
 
