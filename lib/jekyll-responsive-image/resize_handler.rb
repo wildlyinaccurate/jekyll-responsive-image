@@ -24,6 +24,7 @@ module Jekyll
 
           unless needs_resizing?(img, width)
             site_source_filepath = File.expand_path(image_path, config[:site_source])
+            next if File.exist?(site_dest_filepath)
             FileUtils.copy_file(site_source_filepath, site_dest_filepath)
             next
           end
