@@ -16,7 +16,7 @@ module Jekyll
           image_path = img.filename.force_encoding(Encoding::UTF_8)
           filepath = format_output_path(config['output_path_format'], config, image_path, width, height)
 
-          site_source_filepath = File.expand_path(filepath, config[:site_source])
+          site_source_filepath = File.expand_path(image_path, config[:site_source])
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
 
           ensure_output_dir_exists!(site_source_filepath)
