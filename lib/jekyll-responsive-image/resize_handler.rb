@@ -31,7 +31,7 @@ module Jekyll
           resized.push(image_hash(config, filepath, width, height))
 
           # Don't resize images more than once
-          next if File.exist?(site_source_filepath)
+          next if File.exist?(site_dest_filepath)
 
           Jekyll.logger.info "Generating #{site_source_filepath}"
 
