@@ -71,6 +71,10 @@ responsive_image:
   #
   output_path_format: assets/resized/%{width}/%{basename}
 
+  # [Optional, Default: true]
+  # Whether or not to save the generated assets into the source folder.
+  save_to_source: false
+
   # [Optional, Default: []]
   # By default, only images referenced by the responsive_image and responsive_image_block
   # tags are resized. Here you can set a list of paths or path globs to resize other
