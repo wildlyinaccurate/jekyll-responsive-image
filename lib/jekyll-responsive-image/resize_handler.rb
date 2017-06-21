@@ -22,23 +22,31 @@ module Jekyll
           site_source_filepath = File.expand_path(filepath, config[:site_source])
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
 
-          # Don't resize images more than once
-          next if File.exist?(site_source_filepath)
+          if config['save_to_source']
+            target_filepath = site_source_filepath
+          else
+            target_filepath = site_dest_filepath
+          end
 
-          ensure_output_dir_exists!(site_source_filepath)
+          # Don't resize images more than once
+          next if File.exist?(target_filepath)
+
+          ensure_output_dir_exists!(target_filepath)
           ensure_output_dir_exists!(site_dest_filepath)
 
-          Jekyll.logger.info "Generating #{site_source_filepath}"
+          Jekyll.logger.info "Generating #{target_filepath}"
 
           i = img.scale(ratio)
-          i.write(site_source_filepath) do |f|
+          i.write(target_filepath) do |f|
             f.interlace = i.interlace
             f.quality = size['quality'] || config['default_quality']
           end
 
-          # Ensure the generated file is copied to the _site directory
-          Jekyll.logger.info "Copying resized image to #{site_dest_filepath}"
-          FileUtils.copy_file(site_source_filepath, site_dest_filepath)
+          if config['save_to_source']
+            # Ensure the generated file is copied to the _site directory
+            Jekyll.logger.info "Copying resized image to #{site_dest_filepath}"
+            FileUtils.copy_file(site_source_filepath, site_dest_filepath)
+          end
 
           i.destroy!
         end
