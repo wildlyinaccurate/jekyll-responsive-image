@@ -1,22 +1,18 @@
 Feature: Save to source
-  Scenario: Save to source
+  Scenario: Resized images are saved to the source directory by default
     Given I have a responsive_image configuration with:
       """
-        save_to_source: true
         sizes:
           - width: 100
         extra_images:
           - assets/everybody-loves-jalapeño-pineapple-cornbread.png
-          - assets/*.jpeg
       """
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
-    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
-    And the file "assets/resized/progressive-100x50.jpeg" should exist
+    Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
     And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
-    And the file "_site/assets/resized/progressive-100x50.jpeg" should exist
 
-  Scenario: Do not save to source
+  Scenario: Resized images can be saved to the destination directory only with save_to_source: false
     Given I have a responsive_image configuration with:
       """
         save_to_source: false
@@ -28,7 +24,5 @@ Feature: Save to source
       """
     And I have a file "index.html" with "Hello, world!"
     When I run Jekyll
-    And the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should not exist
-    And the file "assets/resized/progressive-100x50.jpeg" should not exist
-    And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
-    And the file "_site/assets/resized/progressive-100x50.jpeg" should exist
+    Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should not exist
+    But the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
