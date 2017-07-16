@@ -8,7 +8,8 @@ module Jekyll
         'sizes'              => [],
         'extra_images'       => [],
         'auto_rotate'        => false,
-        'save_to_source'     => true
+        'save_to_source'     => true,
+        'cache'              => false
       }
 
       def initialize(site)
