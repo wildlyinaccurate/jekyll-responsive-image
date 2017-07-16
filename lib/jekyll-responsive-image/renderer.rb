@@ -9,12 +9,12 @@ module Jekyll
       end
 
       def render_responsive_image
+        config = Config.new(@site).to_h
+        use_cache = config['cache'] || @attributes['cache']
         cache_key = @attributes.to_s
-        result = @attributes['cache'] ? RenderCache.get(cache_key) : nil
+        result = use_cache ? RenderCache.get(cache_key) : nil
 
         if result.nil?
-          config = Config.new(@site).to_h
-
           image = ImageProcessor.process(@attributes['path'], config)
           @attributes['original'] = image[:original]
           @attributes['resized'] = image[:resized]

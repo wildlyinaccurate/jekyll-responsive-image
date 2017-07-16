@@ -75,6 +75,11 @@ responsive_image:
   # Whether or not to save the generated assets into the source folder.
   save_to_source: false
 
+  # [Optional, Default: false]
+  # Cache the result of {% responsive_image %} and {% responsive_image_block %}
+  # tags. See the "Caching" section of the README for more information.
+  cache: false
+
   # [Optional, Default: []]
   # By default, only images referenced by the responsive_image and responsive_image_block
   # tags are resized. Here you can set a list of paths or path globs to resize other
@@ -213,3 +218,28 @@ Image objects (like `original` and each object in `resized`) contain the followi
 | `dirname`   | String  | Directory of the file relative to `base_path` (`assets/sub/dir/some-file.jpg` => `sub/dir`). |
 | `filename`  | String  | Basename without the extension (`assets/some-file.jpg` => `some-file`).                      |
 | `extension` | String  | Extension of the file (`assets/some-file.jpg` => `jpg`).                                     |
+
+### Caching
+
+You may be able to speed up the build of large sites by enabling render caching. This is usually only effective when the same image is used many times, for example a header image that is rendered in every post.
+
+The recommended way to enable caching is on an image-by-image basis, by adding `cache: true` to the tag:
+
+```twig
+{% responsive_image path: 'assets/my-file.jpg' cache: true %}
+
+{% responsive_image_block %}
+    path: assets/my-file.jpg
+    cache: true
+{% endresponsive_image_block %}
+```
+
+You can also enable it for all images by adding `cache: true` to your `_config.yml`:
+
+```yaml
+responsive_image:
+  cache: true
+  template: _includes/responsive-image.html
+  sizes:
+    - ...
+```
