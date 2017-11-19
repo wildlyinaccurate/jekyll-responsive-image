@@ -11,6 +11,19 @@ Feature: Responsive image generation
     Then the image "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should have the dimensions "100x50"
     And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-100x50.png" should exist
 
+  Scenario: Skipping images that don't need resizing
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 10000
+      """
+    And I have a file "index.html" with "{% responsive_image path: assets/everybody-loves-jalapeño-pineapple-cornbread.png alt: Foobar %}"
+    When I run Jekyll
+    Then the file "assets/resized/everybody-loves-jalapeño-pineapple-cornbread-10000x50.png" should not exist
+    And the file "_site/assets/resized/everybody-loves-jalapeño-pineapple-cornbread-10000x50.png" should not exist
+    But the file "_site/assets/everybody-loves-jalapeño-pineapple-cornbread.png" should exist
+
   Scenario: Handling subdirectories
     Given I have a responsive_image configuration with:
       """
