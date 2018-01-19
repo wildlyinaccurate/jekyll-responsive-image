@@ -86,3 +86,34 @@ Feature: Responsive image generation
     When I run Jekyll
     Then the file "_site/assets/resized/exif-rotation-100x50.jpeg" should exist
     Then the file "_site/assets/resized/progressive-100x50.jpeg" should exist
+
+  Scenario: Images should not be stripped of EXIF info by default
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+      """
+    And I have a file "index.html" with:
+      """
+        {% responsive_image path: assets/exif-rotation.jpeg %}
+      """
+    When I run Jekyll
+    Then the file "_site/assets/resized/exif-rotation-100x50.jpeg" should exist
+    Then the image "_site/assets/resized/exif-rotation-100x50.jpeg" should have an EXIF orientation
+
+  Scenario: Images can be stripped of EXIF info
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+        strip: true
+      """
+    And I have a file "index.html" with:
+      """
+        {% responsive_image path: assets/exif-rotation.jpeg %}
+      """
+    When I run Jekyll
+    Then the file "_site/assets/resized/exif-rotation-100x50.jpeg" should exist
+    Then the image "_site/assets/resized/exif-rotation-100x50.jpeg" should have no EXIF orientation
