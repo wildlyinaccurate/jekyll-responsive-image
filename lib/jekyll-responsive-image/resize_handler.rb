@@ -36,6 +36,9 @@ module Jekyll
 
           Jekyll.logger.info "Generating #{target_filepath}"
 
+          if config['strip']
+            img.strip!
+          end
           i = img.scale(ratio)
           i.write(target_filepath) do |f|
             f.interlace = i.interlace
