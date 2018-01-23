@@ -52,6 +52,11 @@ responsive_image:
   # working with JPGs directly from digital cameras and smartphones
   auto_rotate: false
 
+  # [Optional, Default: false]
+  # Strip EXIF and other JPEG profiles. Helps to minimize JPEG size and win friends
+  # at Google PageSpeed.
+  strip: false
+
   # [Optional, Default: assets]
   # The base directory where assets are stored. This is used to determine the
   # `dirname` value in `output_path_format` below.

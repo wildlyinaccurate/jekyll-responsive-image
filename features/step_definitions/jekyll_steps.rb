@@ -65,6 +65,18 @@ Then /^the image "(.+)" should be interlaced$/ do |path|
   img.destroy!
 end
 
+Then /^the image "(.+)" should have an EXIF orientation$/ do |path|
+  img = Magick::Image::read(path).first
+  assert_not_equal img.orientation.to_i, 0
+  img.destroy!
+end
+
+Then /^the image "(.+)" should have no EXIF orientation$/ do |path|
+  img = Magick::Image::read(path).first
+  assert_equal img.orientation.to_i, 0
+  img.destroy!
+end
+
 def write_file(path, contents)
   File.open(path, 'w') do |f|
     f.write(contents)

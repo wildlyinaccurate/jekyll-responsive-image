@@ -9,7 +9,8 @@ module Jekyll
         'extra_images'       => [],
         'auto_rotate'        => false,
         'save_to_source'     => true,
-        'cache'              => false
+        'cache'              => false,
+        'strip'              => false
       }
 
       def initialize(site)
