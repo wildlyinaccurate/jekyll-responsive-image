@@ -25,7 +25,7 @@ Or you can copy the contents of [`responsive_image.rb`](lib/jekyll-responsive-im
 
 ## Configuration
 
-An example configuration is below.
+You **must** include a `responsive_image` block in your `_config.yml` for this plugin to work. A full list of the available configuration options is below.
 
 ```yaml
 responsive_image:
