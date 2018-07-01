@@ -6,6 +6,10 @@ Then /^Jekyll should throw a "(.+)"$/ do |error_class|
   assert_raise(Object.const_get(error_class)) { run_jekyll }
 end
 
+Then /^there should be no errors$/ do
+  # Implicit pass
+end
+
 Given /^I have copied my site to "(.+)"$/ do |path|
   new_site_dir = File.join(TEST_DIR, path)
 
@@ -14,6 +18,10 @@ Given /^I have copied my site to "(.+)"$/ do |path|
   Dir.glob(File.join(TEST_DIR, '*'))
     .reject { |f| File.basename(f) == File.dirname(path) }
     .each { |f| FileUtils.mv(f, new_site_dir) }
+end
+
+Given /^I have no configuration$/ do
+  write_file('_config.yml', '')
 end
 
 Given /^I have a configuration with:$/ do |config|

@@ -17,8 +17,19 @@ module Jekyll
         @site = site
       end
 
+      def valid_config(config)
+        config.has_key?('responsive_image') && config['responsive_image'].is_a?(Hash)
+      end
+
       def to_h
-        DEFAULTS.merge(@site.config['responsive_image'])
+        config = {}
+
+        if valid_config(@site.config)
+          config = @site.config['responsive_image']
+        end
+
+
+        DEFAULTS.merge(config)
                 .merge(site_source: @site.source, site_dest: @site.dest)
       end
     end
