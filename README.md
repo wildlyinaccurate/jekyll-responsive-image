@@ -4,7 +4,6 @@ A [Jekyll](http://jekyllrb.com/) plugin and utility for automatically resizing i
 
 [![Build Status](https://img.shields.io/travis/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://travis-ci.org/wildlyinaccurate/jekyll-responsive-image)
 [![Coverage Status](https://img.shields.io/coveralls/wildlyinaccurate/jekyll-responsive-image.svg?style=flat-square)](https://coveralls.io/repos/github/wildlyinaccurate/jekyll-responsive-image/badge.svg?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/wildlyinaccurate/jekyll-responsive-images.svg?style=flat-square)](https://gemnasium.com/wildlyinaccurate/jekyll-responsive-images)
 
 ## Installation
 
