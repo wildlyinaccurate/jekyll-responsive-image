@@ -1,0 +1,25 @@
+{% comment %}
+Render your responsive images using Imager.js (https://github.com/BBC-News/Imager.js/), with the smallest resized image used as a fallback.
+
+Usage:
+
+	{% responsive_image path: assets/image.jpg alt: "A description of the image" %}
+
+(P.S. You can safely delete this comment block)
+{% endcomment %}
+
+{% assign smallest = resized | sort: 'width' | first %}
+
+<div class="responsive-image">
+    <img class="responsive-image__placeholder" src="/{{ smallest.path }}">
+    <div class="responsive-image__delayed" data-src="/assets/resized/{width}/{{ original.basename }}"></div>
+</div>
+
+<script>
+    new Imager('.responsive-image__delayed', {
+        availableWidths: [{{ resized | map: 'width' | join: ', ' }}]
+        onImagesReplaced: function() {
+            $('.responsive-image__placeholder').hide();
+        }
+    });
+</script>

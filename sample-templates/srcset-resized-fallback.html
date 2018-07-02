@@ -1,0 +1,18 @@
+{% comment %}
+Render your responsive images using <img srcset>, with the largest resized image used as a fallback.
+
+Usage:
+
+	{% responsive_image path: assets/image.jpg alt: "A description of the image" %}
+
+(P.S. You can safely delete this comment block)
+{% endcomment %}
+
+{% assign largest = resized | sort: 'width' | last %}
+{% capture srcset %}
+    {% for i in resized %}
+        /{{ i.path }} {{ i.width }}w,
+    {% endfor %}
+{% endcapture %}
+
+<img src="/{{ largest.path }}" alt="{{ alt }}" srcset="{{ srcset | strip_newlines }}">

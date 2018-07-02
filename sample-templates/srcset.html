@@ -1,0 +1,17 @@
+{% comment %}
+Render your responsive images using <img srcset>, with the original asset used as a fallback. Note: If your original assets are not web-friendly (e.g. they are very large), you might prefer to use the srcset-resized-fallback.html template.
+
+Usage:
+
+	{% responsive_image path: assets/image.jpg alt: "A description of the image" %}
+
+(P.S. You can safely delete this comment block)
+{% endcomment %}
+
+{% capture srcset %}
+    {% for i in resized %}
+        /{{ i.path }} {{ i.width }}w,
+    {% endfor %}
+{% endcapture %}
+
+<img src="/{{ path }}" alt="{{ alt }}" srcset="{{ srcset | strip_newlines }}">
