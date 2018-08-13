@@ -9,9 +9,15 @@ module Jekyll
         resized = []
 
         config['sizes'].each do |size|
-          width = size['width']
-          ratio = width.to_f / img.columns.to_f
-          height = (img.rows.to_f * ratio).round
+          if img.rows > img.columns
+            height = size['width']
+            ratio = height.to_f / img.rows.to_f
+            width = (img.columns.to_f * ratio).round
+          else
+            width = size['width']
+            ratio = width.to_f / img.columns.to_f
+            height = (img.rows.to_f * ratio).round
+          end
 
           next unless needs_resizing?(img, width)
 
