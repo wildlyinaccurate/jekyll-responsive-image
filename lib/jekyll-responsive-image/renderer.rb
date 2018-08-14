@@ -16,11 +16,12 @@ module Jekyll
 
         if result.nil?
           image = ImageProcessor.process(@attributes['path'], config)
-          @attributes['original'] = image[:original]
-          @attributes['resized'] = image[:resized]
+          if image
+            @attributes['original'] = image[:original]
+            @attributes['resized'] = image[:resized]
 
-          @attributes['resized'].each { |resized| keep_resized_image!(@site, resized) }
-
+            @attributes['resized'].each { |resized| keep_resized_image!(@site, resized) }
+          end
           image_template = @site.in_source_dir(@attributes['template'] || config['template'])
           partial = File.read(image_template)
           template = Liquid::Template.parse(partial)

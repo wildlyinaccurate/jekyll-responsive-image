@@ -18,7 +18,11 @@ module Jekyll
       end
 
       def self.process(image_path, config)
-        self.new.process(image_path, config)
+        begin
+          self.new.process(image_path, config)
+        rescue SyntaxError
+          nil
+        end
       end
     end
   end
