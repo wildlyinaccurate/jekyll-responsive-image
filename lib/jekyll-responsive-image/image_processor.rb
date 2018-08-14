@@ -21,7 +21,7 @@ module Jekyll
         begin
           self.new.process(image_path, config)
         rescue SyntaxError
-          nil
+          { original: {}, resized: [] }
         end
       end
     end
