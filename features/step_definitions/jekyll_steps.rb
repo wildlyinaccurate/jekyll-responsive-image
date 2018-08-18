@@ -62,26 +62,26 @@ Then /^the file "(.+)" should not exist$/ do |path|
 end
 
 Then /^the image "(.+)" should have the dimensions "(\d+)x(\d+)"$/ do |path, width, height|
-  img = Magick::Image::read(path).first
-  assert_equal "#{width}x#{height}", "#{img.columns}x#{img.rows}"
+  img = MiniMagick::Image.open(path)
+  assert_equal "#{width}x#{height}", "#{img.width}x#{img.height}"
   img.destroy!
 end
 
 Then /^the image "(.+)" should be interlaced$/ do |path|
-  img = Magick::Image::read(path).first
-  assert_equal Magick::JPEGInterlace, img.interlace
+  img = MiniMagick::Image.open(path)
+  assert_equal "JPEG", img.data["interlace"]
   img.destroy!
 end
 
 Then /^the image "(.+)" should have an EXIF orientation$/ do |path|
-  img = Magick::Image::read(path).first
-  assert_not_equal img.orientation.to_i, 0
+  img = MiniMagick::Image.open(path)
+  assert_not_equal img.exif['Orientation'].to_i, 0
   img.destroy!
 end
 
 Then /^the image "(.+)" should have no EXIF orientation$/ do |path|
-  img = Magick::Image::read(path).first
-  assert_equal img.orientation.to_i, 0
+  img = MiniMagick::Image.open(path)
+  assert_equal img.exif['Orientation'].to_i, 0
   img.destroy!
 end
 

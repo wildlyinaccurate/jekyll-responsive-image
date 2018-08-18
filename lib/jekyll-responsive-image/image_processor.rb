@@ -9,12 +9,22 @@ module Jekyll
         raise SyntaxError.new("Invalid image path specified: #{image_path}") unless File.file?(absolute_image_path)
 
         resize_handler = ResizeHandler.new
-        img = Magick::Image::read(absolute_image_path).first
+
+        original_image_width, original_image_height = get_dimensions_of_original(absolute_image_path)
 
         {
-          original: image_hash(config, image_path, img.columns, img.rows),
-          resized: resize_handler.resize_image(img, config),
+          original: image_hash(config, image_path, original_image_width, original_image_height),
+          resized: resize_handler.resize_image(absolute_image_path, config),
         }
+      end
+
+      def get_dimensions_of_original(absolute_image_path)
+        original_image_copy = MiniMagick::Image.open(absolute_image_path)
+        dimensions          = original_image_copy.dimensions
+
+        original_image_copy.destroy!
+
+        dimensions
       end
 
       def self.process(image_path, config)

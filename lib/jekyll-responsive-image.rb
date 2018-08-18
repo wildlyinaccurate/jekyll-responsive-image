@@ -2,7 +2,7 @@ require 'fileutils'
 require 'yaml'
 
 require 'jekyll'
-require 'rmagick'
+require 'mini_magick'
 
 require 'jekyll-responsive-image/version'
 require 'jekyll-responsive-image/config'

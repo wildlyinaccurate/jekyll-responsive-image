@@ -3,21 +3,22 @@ module Jekyll
     class ResizeHandler
       include ResponsiveImage::Utils
 
-      def resize_image(img, config)
-        img.auto_orient! if config['auto_rotate']
-
+      def resize_image(original_image_path, config)
         resized = []
 
         config['sizes'].each do |size|
-          width = size['width']
-          ratio = width.to_f / img.columns.to_f
-          height = (img.rows.to_f * ratio).round
+          original_image_copy = MiniMagick::Image.open(original_image_path)
+          original_image_copy.auto_orient if config['auto_rotate']
 
-          next unless needs_resizing?(img, width)
+          new_width                = size['width']
+          downsize_factor = new_width.to_f / original_image_copy.width.to_f
+          new_height               = (original_image_copy.height.to_f * downsize_factor).round
 
-          image_path = img.filename.force_encoding(Encoding::UTF_8)
-          filepath = format_output_path(config['output_path_format'], config, image_path, width, height)
-          resized.push(image_hash(config, filepath, width, height))
+          next unless needs_resizing?(original_image_copy, new_width)
+
+          image_path = original_image_path.force_encoding(Encoding::UTF_8)
+          filepath = format_output_path(config['output_path_format'], config, image_path, new_width, new_height)
+          resized.push(image_hash(config, filepath, new_width, new_height))
 
           site_source_filepath = File.expand_path(filepath, config[:site_source])
           site_dest_filepath = File.expand_path(filepath, config[:site_dest])
@@ -36,14 +37,14 @@ module Jekyll
 
           Jekyll.logger.info "Generating #{target_filepath}"
 
-          if config['strip']
-            img.strip!
+          original_image_copy.combine_options do |image|
+            image.resize "#{new_width}"
+            image.quality "#{size['quality'] || config['default_quality']}"
+            image.interlace original_image_copy.data["interlace"]
+            image.strip if config['strip']
           end
-          i = img.scale(ratio)
-          i.write(target_filepath) do |f|
-            f.interlace = i.interlace
-            f.quality = size['quality'] || config['default_quality']
-          end
+
+          original_image_copy.write(target_filepath)
 
           if config['save_to_source']
             # Ensure the generated file is copied to the _site directory
@@ -51,10 +52,8 @@ module Jekyll
             FileUtils.copy_file(site_source_filepath, site_dest_filepath)
           end
 
-          i.destroy!
+          original_image_copy.destroy!
         end
-
-        img.destroy!
 
         resized
       end
@@ -66,7 +65,7 @@ module Jekyll
       end
 
       def needs_resizing?(img, width)
-        img.columns > width
+        img.width > width
       end
 
       def ensure_output_dir_exists!(path)
