@@ -10,14 +10,14 @@ module Jekyll
           original_image_copy = MiniMagick::Image.open(original_image_path)
           original_image_copy.auto_orient if config['auto_rotate']
 
-          new_width                = size['width']
+          new_width       = size['width']
           downsize_factor = new_width.to_f / original_image_copy.width.to_f
-          new_height               = (original_image_copy.height.to_f * downsize_factor).round
+          new_height      = (original_image_copy.height.to_f * downsize_factor).round
 
           next unless needs_resizing?(original_image_copy, new_width)
 
           image_path = original_image_path.force_encoding(Encoding::UTF_8)
-          filepath = format_output_path(config['output_path_format'], config, image_path, new_width, new_height)
+          filepath   = format_output_path(config['output_path_format'], config, image_path, new_width, new_height)
           resized.push(image_hash(config, filepath, new_width, new_height))
 
           site_source_filepath = File.expand_path(filepath, config[:site_source])
