@@ -214,3 +214,21 @@ responsive_image:
   sizes:
     - ...
 ```
+
+## Development
+
+If you'd like to contribute to this repository, here's how you can set it up for development:
+
+1. Fork this repository
+2. Clone the fork to your local machine
+3. Install [ImageMagick](http://www.imagemagick.org/) (if you haven't already)
+4. Run `bundle install`
+5. Run the tests like this: `cucumber`
+
+If you'd like your Jekyll project to use your local fork directly, you can add the `:path` parameter to your gem command in the project's Gemfile:
+
+```ruby
+gem 'jekyll-responsive-image', :path => "/your/local/path/to/jekyll-responsive-image"
+```
+
+If you'd like your changes to be considered for the original repository, simply submit a pull request after you've made your changes. Please make sure all tests pass.
