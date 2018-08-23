@@ -16,10 +16,10 @@ Usage:
 </div>
 
 <script>
-    new Imager('.responsive-image__delayed', {
-        availableWidths: [{{ resized | map: 'width' | join: ', ' }}]
-        onImagesReplaced: function() {
-            $('.responsive-image__placeholder').hide();
-        }
-    });
+new Imager('.responsive-image__delayed', {
+    availableWidths: [{{ resized | map: 'width' | join: ', ' }}],
+    onImagesReplaced: function() {
+        $('.responsive-image__placeholder').hide()
+    }
+})
 </script>
