@@ -5,16 +5,22 @@ module Jekyll
 
       def resize_image(original_image_path, config)
         resized = []
+        original_image_width, original_image_height = ImageSize.path(original_image_path).size
 
         config['sizes'].each do |size|
-          original_image_copy = MiniMagick::Image.open(original_image_path)
-          original_image_copy.auto_orient if config['auto_rotate']
+          original_image_copy = nil
+
+          if config['auto_rotate']
+            original_image_copy = MiniMagick::Image.open(original_image_path)
+            original_image_copy.auto_orient
+            original_image_width, original_image_height = original_image_copy.dimensions
+          end
 
           new_width       = size['width']
-          downsize_factor = new_width.to_f / original_image_copy.width.to_f
-          new_height      = (original_image_copy.height.to_f * downsize_factor).round
+          downsize_factor = new_width.to_f / original_image_width.to_f
+          new_height      = (original_image_height.to_f * downsize_factor).round
 
-          next unless needs_resizing?(original_image_copy, new_width)
+          next unless needs_resizing?(original_image_width, new_width)
 
           image_path = original_image_path.force_encoding(Encoding::UTF_8)
           filepath   = format_output_path(config['output_path_format'], config, image_path, new_width, new_height)
@@ -36,6 +42,8 @@ module Jekyll
           ensure_output_dir_exists!(site_dest_filepath)
 
           Jekyll.logger.info "Generating #{target_filepath}"
+
+          original_image_copy = MiniMagick::Image.open(original_image_path) if original_image_copy.nil?
 
           original_image_copy.combine_options do |image|
             image.resize "#{new_width}"
@@ -64,8 +72,8 @@ module Jekyll
         Pathname.new(format % params).cleanpath.to_s
       end
 
-      def needs_resizing?(img, width)
-        img.width > width
+      def needs_resizing?(original_width, new_width)
+        original_width > new_width
       end
 
       def ensure_output_dir_exists!(path)

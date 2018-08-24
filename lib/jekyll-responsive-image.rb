@@ -3,6 +3,7 @@ require 'yaml'
 
 require 'jekyll'
 require 'mini_magick'
+require 'image_size'
 
 require 'jekyll-responsive-image/version'
 require 'jekyll-responsive-image/config'

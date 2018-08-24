@@ -10,21 +10,12 @@ module Jekyll
 
         resize_handler = ResizeHandler.new
 
-        original_image_width, original_image_height = get_dimensions_of_original(absolute_image_path)
+        original_image_width, original_image_height = ImageSize.path(absolute_image_path).size
 
         {
           original: image_hash(config, image_path, original_image_width, original_image_height),
           resized: resize_handler.resize_image(absolute_image_path, config),
         }
-      end
-
-      def get_dimensions_of_original(absolute_image_path)
-        original_image_copy = MiniMagick::Image.open(absolute_image_path)
-        dimensions          = original_image_copy.dimensions
-
-        original_image_copy.destroy!
-
-        dimensions
       end
 
       def self.process(image_path, config)
