@@ -3,19 +3,13 @@ module Jekyll
     class ResizeHandler
       include ResponsiveImage::Utils
 
-      def resize_image(original_image_path, config)
+      def resize_image(original_image_path, original_image_dimensions, config)
         resized = []
-        original_image_width, original_image_height = ImageSize.path(original_image_path).size
+
+        original_image_width  = original_image_dimensions.first
+        original_image_height = original_image_dimensions.last
 
         config['sizes'].each do |size|
-          original_image_copy = nil
-
-          if config['auto_rotate']
-            original_image_copy = MiniMagick::Image.open(original_image_path)
-            original_image_copy.auto_orient
-            original_image_width, original_image_height = original_image_copy.dimensions
-          end
-
           new_width       = size['width']
           downsize_factor = new_width.to_f / original_image_width.to_f
           new_height      = (original_image_height.to_f * downsize_factor).round
@@ -27,7 +21,7 @@ module Jekyll
           resized.push(image_hash(config, filepath, new_width, new_height))
 
           site_source_filepath = File.expand_path(filepath, config[:site_source])
-          site_dest_filepath = File.expand_path(filepath, config[:site_dest])
+          site_dest_filepath   = File.expand_path(filepath, config[:site_dest])
 
           if config['save_to_source']
             target_filepath = site_source_filepath
@@ -43,9 +37,10 @@ module Jekyll
 
           Jekyll.logger.info "Generating #{target_filepath}"
 
-          original_image_copy = MiniMagick::Image.open(original_image_path) if original_image_copy.nil?
+          original_image_copy = MiniMagick::Image.open(original_image_path)
 
           original_image_copy.combine_options do |image|
+            image.auto_orient if config['auto_rotate']
             image.resize "#{new_width}"
             image.quality "#{size['quality'] || config['default_quality']}"
             image.interlace original_image_copy.data["interlace"]
