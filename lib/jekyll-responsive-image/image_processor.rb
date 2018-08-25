@@ -24,8 +24,8 @@ module Jekyll
 
       private
 
-      def get_dimensions_of_original_image(origina_image_path, config)
-        original_image = FastImage.new(origina_image_path)
+      def get_dimensions_of_original_image(original_image_path, config)
+        original_image = FastImage.new(original_image_path)
 
         # FastImage – opposed to MiniMagick – takes the image's orientation value into consideration by default when returning the size.
         # If one is not using the auto_rotate config setting, this needs to be manually 'uncorrected',
