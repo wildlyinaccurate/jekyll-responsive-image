@@ -19,7 +19,7 @@ module Jekyll
             height = (img.rows.to_f * ratio).round
           end
 
-          next unless needs_resizing?(img, width)
+          #next unless needs_resizing?(img, width)
 
           image_path = img.filename.force_encoding(Encoding::UTF_8)
           filepath = format_output_path(config['output_path_format'], config, image_path, width, height)

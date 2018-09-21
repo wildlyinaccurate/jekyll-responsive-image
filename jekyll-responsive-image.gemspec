@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'jekyll', ['>= 2.0', "< 4.0"]
   spec.add_runtime_dependency 'rmagick', ['>= 2.0', '< 3.0']
+  spec.add_development_dependency 'pry'
 end
