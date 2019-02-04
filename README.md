@@ -17,19 +17,6 @@ Either add `jekyll-responsive-image` to your Gemfile, or run the following comma
 $ gem install jekyll-responsive-image
 ```
 
-> **Note:** `jekyll-responsive-image` uses `rmagick` which is currently incompatible with `imagemagick 7`. If you get an error like:
->
-> ```
-> Can't install RMagick 2.16.0. Can't find MagickWand.h
-> ```
-> make sure you have `imagemagick 6` installed:
->
-> ```
-> $ brew uninstall imagemagick
-> $ brew install imagemagick@6 && brew link imagemagick@6 --force
-> ```
-
-
 Then you can either add `jekyll-responsive-image` to the `plugins` section of your `_config.yml`:
 
 ```yaml
@@ -201,6 +188,23 @@ responsive_image:
     - assets/foo/bar.png
     - assets/bgs/*.png
     - assets/avatars/*.{jpeg,jpg}
+```
+
+## Troubleshooting
+
+### Error: Can't install RMagick
+
+`jekyll-responsive-image` uses `rmagick` which is currently incompatible with ImageMagick 7. If you get an error like:
+
+```
+Can't install RMagick 2.16.0. Can't find MagickWand.h
+```
+
+Then you will need to install ImageMagick 6. If you are using Homebrew on Mac OS, this can be done with the following commands:
+
+```
+$ brew uninstall imagemagick
+$ brew install imagemagick@6 && brew link imagemagick@6 --force
 ```
 
 ## Caching
