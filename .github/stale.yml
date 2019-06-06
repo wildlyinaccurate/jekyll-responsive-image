@@ -1,5 +1,6 @@
 daysUntilStale: 18
 daysUntilClose: 3
+staleLabel: stale
 exemptLabels:
   - pinned
 markComment: >
