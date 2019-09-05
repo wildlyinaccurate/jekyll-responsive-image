@@ -56,4 +56,4 @@ Feature: Jekyll responsive_image_block tag
           path: {{ path }}
       {% endresponsive_image_block %}
       """
-    Then Jekyll should throw a "SyntaxError"
+    Then Jekyll should throw a "Magick::ImageMagickError"
