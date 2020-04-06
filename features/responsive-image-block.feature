@@ -13,6 +13,20 @@ Feature: Jekyll responsive_image_block tag
     When I run Jekyll
     Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\" title=\"Magic rainbow adventure!\"" in "_site/index.html"
 
+  Scenario: Tabs for indentation
+    Given I have a responsive_image configuration with "template" set to "_includes/responsive-image.html"
+    And I have a file "index.html" with:
+      """
+      {% assign path = 'assets/everybody-loves-jalapeño-pineapple-cornbread.png' %}
+      {% responsive_image_block %}
+      	path: {{ path }}
+      	title: Magic rainbow adventure!
+      	alt: Lorem ipsum
+      {% endresponsive_image_block %}
+      """
+    When I run Jekyll
+    Then I should see "<img alt=\"Lorem ipsum\" src=\"/assets/everybody-loves-jalapeño-pineapple-cornbread.png\" title=\"Magic rainbow adventure!\"" in "_site/index.html"
+
   Scenario: Global variables available in templates
     Given I have a file "index.html" with:
       """
