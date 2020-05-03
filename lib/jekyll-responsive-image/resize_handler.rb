@@ -55,6 +55,10 @@ module Jekyll
             @original_image.strip!
           end
 
+        # Don't resize ignored images, just copy them
+        if config['ignored_extensions'].include?(output_image_hash['extension'])
+          FileUtils.copy_file(image_path, target_filepath)
+        else
           i = @original_image.scale(ratio)
 
           quality = size['quality'] || @config['default_quality']
@@ -63,14 +67,13 @@ module Jekyll
             f.interlace = i.interlace
             f.quality = quality
           end
+          i.destroy!
 
           if @config['save_to_source']
             # Ensure the generated file is copied to the _site directory
             Jekyll.logger.info "Copying resized image to #{site_dest_filepath}"
             FileUtils.copy_file(site_source_filepath, site_dest_filepath)
           end
-
-          i.destroy!
         end
 
         @original_image.destroy!

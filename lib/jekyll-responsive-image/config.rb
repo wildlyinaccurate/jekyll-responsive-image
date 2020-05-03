@@ -6,6 +6,7 @@ module Jekyll
         'base_path'          => 'assets',
         'output_path_format' => 'assets/resized/%{filename}-%{width}x%{height}.%{extension}',
         'sizes'              => [],
+        'ignored_extensions' => ['gif'],
         'extra_images'       => [],
         'auto_rotate'        => false,
         'save_to_source'     => true,
