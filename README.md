@@ -35,7 +35,7 @@ For more advanced templates, see the [**Templates**](#templates) section below.
 
 ### 3. Configure the plugin
 
-You **must** have a `responsive_image` block in your `_config.yml` for this plugin to work. The minimum required configuration is a `template` path. You should also have a `sizes` configuration or the plugin will not do anything.
+You **must** have a `responsive_image` block in your `_config.yml` for this plugin to work. At a minimum, your `responsive_image` configuration should have a template path and a list of sizes.
 
 ```yaml
 responsive_image:
