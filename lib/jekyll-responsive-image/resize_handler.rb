@@ -3,26 +3,35 @@ module Jekyll
     class ResizeHandler
       include ResponsiveImage::Utils
 
-      def resize_image(img, config)
-        img.auto_orient! if config['auto_rotate']
+      attr_reader :original_image
+
+      def initialize(original_image_absolute_path, config)
+        @original_image_absolute_path = original_image_absolute_path
+        @original_image = Magick::Image::ping(original_image_absolute_path).first
+        @original_image_pixels_loaded = false
+        @config = config
+      end
+
+      def resize_image
+        @original_image.auto_orient! if @config['auto_rotate']
 
         resized = []
 
-        config['sizes'].each do |size|
+        @config['sizes'].each do |size|
           width = size['width']
-          ratio = width.to_f / img.columns.to_f
-          height = (img.rows.to_f * ratio).round
+          ratio = width.to_f / @original_image.columns.to_f
+          height = (@original_image.rows.to_f * ratio).round
 
-          next unless needs_resizing?(img, width)
+          next unless needs_resizing?(width)
 
-          image_path = img.filename.force_encoding(Encoding::UTF_8)
-          filepath = format_output_path(config['output_path_format'], config, image_path, width, height)
-          resized.push(image_hash(config, filepath, width, height))
+          image_path = @original_image.filename.force_encoding(Encoding::UTF_8)
+          filepath = format_output_path(@config['output_path_format'], @config, image_path, width, height)
+          resized.push(image_hash(@config, filepath, width, height))
 
-          site_source_filepath = File.expand_path(filepath, config[:site_source])
-          site_dest_filepath = File.expand_path(filepath, config[:site_dest])
+          site_source_filepath = File.expand_path(filepath, @config[:site_source])
+          site_dest_filepath = File.expand_path(filepath, @config[:site_dest])
 
-          if config['save_to_source']
+          if @config['save_to_source']
             target_filepath = site_source_filepath
           else
             target_filepath = site_dest_filepath
@@ -36,16 +45,25 @@ module Jekyll
 
           Jekyll.logger.info "Generating #{target_filepath}"
 
-          if config['strip']
-            img.strip!
-          end
-          i = img.scale(ratio)
-          i.write(target_filepath) do |f|
-            f.interlace = i.interlace
-            f.quality = size['quality'] || config['default_quality']
+          unless @original_image_pixels_loaded
+            @original_image = Magick::Image::read(@original_image_absolute_path).first
+            @original_image_pixels_loaded = true
           end
 
-          if config['save_to_source']
+          if @config['strip']
+            @original_image.strip!
+          end
+
+          i = @original_image.scale(ratio)
+
+          quality = size['quality'] || @config['default_quality']
+
+          i.write(target_filepath) do |f|
+            f.interlace = i.interlace
+            f.quality = quality
+          end
+
+          if @config['save_to_source']
             # Ensure the generated file is copied to the _site directory
             Jekyll.logger.info "Copying resized image to #{site_dest_filepath}"
             FileUtils.copy_file(site_source_filepath, site_dest_filepath)
@@ -54,7 +72,7 @@ module Jekyll
           i.destroy!
         end
 
-        img.destroy!
+        @original_image.destroy!
 
         resized
       end
@@ -65,8 +83,8 @@ module Jekyll
         Pathname.new(format % params).cleanpath.to_s
       end
 
-      def needs_resizing?(img, width)
-        img.columns > width
+      def needs_resizing?(width)
+        @original_image.columns > width
       end
 
       def ensure_output_dir_exists!(path)
