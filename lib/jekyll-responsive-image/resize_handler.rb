@@ -13,7 +13,10 @@ module Jekyll
       end
 
       def resize_image
-        @original_image.auto_orient! if @config['auto_rotate']
+        if @config['auto_rotate']
+          load_full_image
+          @original_image.auto_orient!
+        end
 
         resized = []
 
@@ -45,10 +48,7 @@ module Jekyll
 
           Jekyll.logger.info "Generating #{target_filepath}"
 
-          unless @original_image_pixels_loaded
-            @original_image = Magick::Image::read(@original_image_absolute_path).first
-            @original_image_pixels_loaded = true
-          end
+          load_full_image unless @original_image_pixels_loaded
 
           if @config['strip']
             @original_image.strip!
@@ -85,6 +85,11 @@ module Jekyll
 
       def needs_resizing?(width)
         @original_image.columns > width
+      end
+
+      def load_full_image
+        @original_image = Magick::Image::read(@original_image_absolute_path).first
+        @original_image_pixels_loaded = true
       end
 
       def ensure_output_dir_exists!(path)
