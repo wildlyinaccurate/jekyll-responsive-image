@@ -6,18 +6,19 @@ module Jekyll
       attr_reader :original_image
 
       def initialize(original_image_absolute_path, config)
-        @original_image_absolute_path = original_image_absolute_path
-        @original_image = Magick::Image::ping(original_image_absolute_path).first
-        @original_image_pixels_loaded = false
         @config = config
-      end
 
-      def resize_image
+        @original_image_absolute_path = original_image_absolute_path
+
         if @config['auto_rotate']
           load_full_image
           @original_image.auto_orient!
+        else
+          load_image_properties_only
         end
+      end
 
+      def resize_image
         resized = []
 
         @config['sizes'].each do |size|
@@ -90,6 +91,11 @@ module Jekyll
       def load_full_image
         @original_image = Magick::Image::read(@original_image_absolute_path).first
         @original_image_pixels_loaded = true
+      end
+
+      def load_image_properties_only
+        @original_image = Magick::Image::ping(@original_image_absolute_path).first
+        @original_image_pixels_loaded = false
       end
 
       def ensure_output_dir_exists!(path)
