@@ -132,6 +132,10 @@ responsive_image:
   # Path to the image template.
   template: _includes/responsive-image.html
 
+  # [Optional, Default: ["gif]]
+  # Ignore some images, like animated gifs, etc.
+  ignored_extensions: ["gif", "ico"]
+
   # [Optional, Default: 85]
   # Quality to use when resizing images.
   default_quality: 90
