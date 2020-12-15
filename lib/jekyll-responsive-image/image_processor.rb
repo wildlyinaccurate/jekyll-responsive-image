@@ -8,12 +8,11 @@ module Jekyll
 
         Jekyll.logger.warn "Invalid image path specified: #{image_path.inspect}" unless File.file?(absolute_image_path)
 
-        resize_handler = ResizeHandler.new
-        img = Magick::Image::read(absolute_image_path).first
+        resize_handler = ResizeHandler.new(absolute_image_path, config)
 
         {
-          original: image_hash(config, image_path, img.columns, img.rows),
-          resized: resize_handler.resize_image(img, config),
+          original: image_hash(config, image_path, resize_handler.original_image.columns, resize_handler.original_image.rows),
+          resized: resize_handler.resize_image,
         }
       end
 
