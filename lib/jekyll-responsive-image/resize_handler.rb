@@ -30,7 +30,8 @@ module Jekyll
 
           image_path = @original_image.filename.force_encoding(Encoding::UTF_8)
           filepath = format_output_path(@config['output_path_format'], @config, image_path, width, height)
-          resized.push(image_hash(@config, filepath, width, height))
+          output_image_hash = image_hash(@config, filepath, width, height)
+          resized.push(output_image_hash)
 
           site_source_filepath = File.expand_path(filepath, @config[:site_source])
           site_dest_filepath = File.expand_path(filepath, @config[:site_dest])
@@ -55,19 +56,20 @@ module Jekyll
             @original_image.strip!
           end
 
-        # Don't resize ignored images, just copy them
-        if config['ignored_extensions'].include?(output_image_hash['extension'])
-          FileUtils.copy_file(image_path, target_filepath)
-        else
-          i = @original_image.scale(ratio)
+          # Don't resize ignored images, just copy them
+          if @config['ignored_extensions'].include?(output_image_hash['extension'])
+            FileUtils.copy_file(image_path, target_filepath)
+          else
+            i = @original_image.scale(ratio)
 
-          quality = size['quality'] || @config['default_quality']
+            quality = size['quality'] || @config['default_quality']
 
-          i.write(target_filepath) do |f|
-            f.interlace = i.interlace
-            f.quality = quality
+            i.write(target_filepath) do |f|
+              f.interlace = i.interlace
+              f.quality = quality
+            end
+            i.destroy!
           end
-          i.destroy!
 
           if @config['save_to_source']
             # Ensure the generated file is copied to the _site directory
