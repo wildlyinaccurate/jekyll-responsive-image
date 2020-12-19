@@ -117,3 +117,22 @@ Feature: Responsive image generation
     When I run Jekyll
     Then the file "_site/assets/resized/exif-rotation-100x50.jpeg" should exist
     Then the image "_site/assets/resized/exif-rotation-100x50.jpeg" should have no EXIF orientation
+
+  Scenario: Images with a given extension are ignored from resizing
+    Given I have a responsive_image configuration with:
+      """
+        template: _includes/responsive-image.html
+        sizes:
+          - width: 100
+        ignored_extensions:
+          - "gif"
+      """
+    And I have a file "index.html" with:
+      """
+        {% responsive_image path: assets/hotdog-dancing.gif %}
+      """
+    When I run Jekyll
+    Then the file "assets/resized/hotdog-dancing-100x85.gif" should exist
+    Then the image "assets/resized/hotdog-dancing-100x85.gif" should have the dimensions "560x474"
+    Then the file "_site/assets/resized/hotdog-dancing-100x85.gif" should exist
+    Then the image "_site/assets/resized/hotdog-dancing-100x85.gif" should have the dimensions "560x474"

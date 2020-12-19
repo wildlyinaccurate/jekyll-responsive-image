@@ -134,7 +134,9 @@ responsive_image:
 
   # [Optional, Default: ["gif]]
   # Ignore some images, like animated gifs, etc.
-  ignored_extensions: ["gif", "ico"]
+  ignored_extensions:
+    - "gif"
+    - "ico"
 
   # [Optional, Default: 85]
   # Quality to use when resizing images.
