@@ -25,7 +25,11 @@ module Jekyll
           partial = File.read(image_template)
           template = Liquid::Template.parse(partial)
 
-          result = template.render!(@attributes.merge(@site.site_payload))
+          info = {
+            registers: { site: @site }
+          }
+
+          result = template.render!(@attributes.merge(@site.site_payload), info)
 
           RenderCache.set(cache_key, result)
         end
