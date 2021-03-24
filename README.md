@@ -192,6 +192,12 @@ responsive_image:
     - assets/foo/bar.png
     - assets/bgs/*.png
     - assets/avatars/*.{jpeg,jpg}
+
+  # [Optional, Default: []]
+  # File name extensions to ignore when processing the images. It can be used
+  # to avoid processing SVG files.
+  ignore_extensions:
+    - .svg
 ```
 
 ## Troubleshooting

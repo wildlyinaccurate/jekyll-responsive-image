@@ -10,7 +10,8 @@ module Jekyll
         'auto_rotate'        => false,
         'save_to_source'     => true,
         'cache'              => false,
-        'strip'              => false
+        'strip'              => false,
+        'ignore_extensions'  => []
       }
 
       def initialize(site)

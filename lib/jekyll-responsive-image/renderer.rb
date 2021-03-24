@@ -15,11 +15,13 @@ module Jekyll
         result = use_cache ? RenderCache.get(cache_key) : nil
 
         if result.nil?
-          image = ImageProcessor.process(@attributes['path'], config)
-          @attributes['original'] = image[:original]
-          @attributes['resized'] = image[:resized]
+          if not config['ignore_extensions'].include? File.extname(@attributes['path'])
+            image = ImageProcessor.process(@attributes['path'], config)
+            @attributes['original'] = image[:original]
+            @attributes['resized'] = image[:resized]
 
-          @attributes['resized'].each { |resized| keep_resized_image!(@site, resized) }
+            @attributes['resized'].each { |resized| keep_resized_image!(@site, resized) }
+          end
 
           image_template = @site.in_source_dir(@attributes['template'] || config['template'])
           partial = File.read(image_template)
