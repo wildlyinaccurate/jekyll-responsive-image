@@ -11,6 +11,8 @@ This plugin can be installed in three steps:
 
 ### 1. Install the gem
 
+Note: If you are using Windows, you will need to install the [`https://imagemagick.org/script/download.php`](ImageMagick Binary) first before installing the `jekyll-responsive-image` gem. Be sure the option for adding it to the system path is selected.
+
 Either add `jekyll-responsive-image` to your Gemfile, or run the following command to install the gem:
 
 ```
