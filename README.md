@@ -194,23 +194,6 @@ responsive_image:
     - assets/avatars/*.{jpeg,jpg}
 ```
 
-## Troubleshooting
-
-### Error: Can't install RMagick
-
-`jekyll-responsive-image` uses `rmagick` which is currently incompatible with ImageMagick 7. If you get an error like:
-
-```
-Can't install RMagick 2.16.0. Can't find MagickWand.h
-```
-
-Then you will need to install ImageMagick 6. If you are using Homebrew on Mac OS, this can be done with the following commands:
-
-```
-$ brew uninstall imagemagick
-$ brew install imagemagick@6 && brew link imagemagick@6 --force
-```
-
 ## Caching
 
 You may be able to speed up the build of large sites by enabling render caching. This is usually only effective when the same image is used many times, for example a header image that is rendered in every post.
